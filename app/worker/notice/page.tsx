@@ -17,16 +17,18 @@ const Notice: FC = () => {
           <div className="ml-[90%]">
             <OnDate />
           </div>
-          <div className="">
-            <div>1월 평가 우수 직원 보너스 안내</div>
-            <div className="flex gap-8">
+          <div>
+            <div className="text-lg ml-16 mb-4 font-semibold">
+              1월 평가 우수 직원 보너스 안내
+            </div>
+            <div className="flex ml-24 gap-4 mb-6">
               <div>날짜</div>
               <div>작성자</div>
             </div>
             <div className="bg-red-100 mx-32 h-96">게시글 내용</div>
           </div>
           <div>
-            <div>공지사항 List</div>
+            <div className="bg-blue-100 mx-32 h-64 mt-12">공지사항 List</div>
           </div>
         </main>
       </div>

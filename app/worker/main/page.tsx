@@ -19,7 +19,7 @@ const Main: FC = () => {
               <OnDate />
             </div>
             <div className="mx-6 my-6">
-              <div className="font-semibold text-lg lg:ml-16 mb-6 w-36">
+              <div className="font-semibold text-lg ml-16 mb-6 w-36">
                 전직원 공지사항
               </div>
               <div className="flex justify-between">
