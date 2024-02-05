@@ -1,4 +1,4 @@
-import Footer from "@/components/footer/Footer";
+import Footer from "@/src/components/footer/Footer";
 import { FC } from "react";
 
 const Significant: FC = () => {
