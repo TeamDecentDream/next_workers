@@ -1,6 +1,7 @@
 "use client";
 
-import Footer from "@/components/footer/Footer";
+
+import Footer from "@/src/components/footer/Footer";
 import Image from "next/image";
 
 export default function Login() {

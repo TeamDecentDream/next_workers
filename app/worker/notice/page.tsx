@@ -1,8 +1,8 @@
 "use client";
 
-import Footer from "@/components/footer/Footer";
-import OnDate from "@/components/functional/OnDate";
-import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/src/components/footer/Footer";
+import OnDate from "@/src/components/functional/OnDate";
+import Navbar from "@/src/components/navbar/Navbar";
 import { FC } from "react";
 
 const Notice: FC = () => {
