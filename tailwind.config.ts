@@ -12,7 +12,8 @@ const config: Config = {
       colors: {
         darkGreen: "#00B050",
         lightGreen: "#A0E557",
-        nextBlue: "#3396F4"
+        nextBlue: "#3396F4",
+        nextPurple: "#7C33F4"
       }
     }
   },

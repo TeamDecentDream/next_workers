@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
 const OnDate = () => {
-  const [time, setTime] = useState<Date>(new Date());
+  const [date, setDate] = useState<Date>(new Date());
 
   useEffect(() => {
-    const timerId = setInterval(() => {
-      setTime(new Date());
+    const dateId = setInterval(() => {
+      setDate(new Date());
     }, 1000);
 
-    return () => clearInterval(timerId);
+    return () => clearInterval(dateId);
   }, []);
 
-  return <div>{time.toLocaleDateString()}</div>;
+  return <div>{date.toLocaleDateString()}</div>;
 };
 
 export default OnDate;
