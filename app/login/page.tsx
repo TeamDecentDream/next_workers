@@ -2,7 +2,6 @@
 
 import Footer from "@/src/components/footer/Footer";
 import Image from "next/image";
-
 import { redirect } from "next/navigation";
 import axios from "axios";
 import { useEffect } from "react";
