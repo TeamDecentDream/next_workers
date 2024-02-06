@@ -3,7 +3,33 @@
 import Footer from "@/src/components/footer/Footer";
 import Image from "next/image";
 
+import { redirect } from "next/navigation";
+import axios from "axios";
+import { useEffect } from "react";
+
+const GinServerBaseURL = "http://localhost:8080";
+
 export default function Login() {
+  useEffect(() => {
+    if (sessionStorage.getItem("kakao")) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const credentailcode = searchParams.get("code");
+      sessionStorage.removeItem("kakao");
+      axios
+        .post(GinServerBaseURL + `/member/login`, {
+          provider: "kakao",
+          Code: credentailcode
+        })
+        .then((resp) => {
+          sessionStorage.setItem("accessToken", resp.data);
+          redirect("/worker/main");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
   return (
     <div className="min-w-[1024px] w-full">
       <div className="flex flex-col justify-center items-center min-h-[768px] h-[96vh]">
