@@ -2,7 +2,7 @@
 
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
-import Navbar from "@/src/components/navbar/Navbar";
+import Navbar from "@/src/components/adminnavbar/Navbar";
 import { FC } from "react";
 
 const Significant: FC = () => {
@@ -13,7 +13,9 @@ const Significant: FC = () => {
           <Navbar />
         </div>
         <main className="w-[1440px] h-full grow">
-          <div className="font-bold w-64 text-3xl mx-6 mt-6">특이사항 보고</div>
+          <div className="font-bold w-64 text-3xl mx-6 mt-6">
+            농가 상황 모니터링
+          </div>
           <div className="ml-[90%]">
             <OnDate />
           </div>

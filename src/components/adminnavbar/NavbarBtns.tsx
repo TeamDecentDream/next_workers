@@ -8,6 +8,9 @@ const NavbarBtns: FC = () => {
       <Link href="./todo">할 일 관리</Link>
       <Link href="./weather">일기예보</Link>
       <Link href="./significant">특이사항 보고</Link>
+      <Link href="./alart">특이사항 알림</Link>
+      <Link href="./receiptions">거래내역</Link>
+      <Link href="./situation">농가 상황 모니터링</Link>
       <Link href="./defi">DeFi</Link>
     </div>
   );

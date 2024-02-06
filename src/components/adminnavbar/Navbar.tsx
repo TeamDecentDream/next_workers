@@ -4,11 +4,11 @@ import Link from "next/link";
 
 const Navbar: FC = () => {
   return (
-    <div className="w-[300px] min-h-full bg-lightGreen">
+    <div className="w-[300px] min-h-full bg-nextPurple">
       <div className="flex flex-col">
         <div className="flex flex-col items-center">
           <Link href="./main">
-            <h1 className="mt-20 text-lㅎ bold">
+            <h1 className="mt-20 text-lg bold">
               Main Link(이미지 or 로고 예정)
             </h1>
           </Link>

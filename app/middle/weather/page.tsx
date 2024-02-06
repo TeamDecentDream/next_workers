@@ -2,7 +2,7 @@
 
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
-import Navbar from "@/src/components/navbar/Navbar";
+import Navbar from "@/src/components/midnavbar/Navbar";
 import { FC } from "react";
 
 const Notice: FC = () => {

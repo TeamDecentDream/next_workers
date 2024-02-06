@@ -2,7 +2,7 @@
 
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
-import Navbar from "@/src/components/navbar/Navbar";
+import Navbar from "@/src/components/adminnavbar/Navbar";
 import { FC } from "react";
 
 const Notice: FC = () => {
@@ -13,7 +13,7 @@ const Notice: FC = () => {
           <Navbar />
         </div>
         <main className="w-[1440px] h-full grow">
-          <div className="font-bold w-32 text-3xl mx-6 mt-6">일기예보</div>
+          <div className="font-bold w-32 text-3xl mx-6 mt-6">공지사항</div>
           <div className="ml-[90%]">
             <OnDate />
           </div>
@@ -25,18 +25,10 @@ const Notice: FC = () => {
               <div>날짜</div>
               <div>작성자</div>
             </div>
-            <div className="flex justify-between items-center mx-32 h-96 gap-12">
-              <div className="bg-red-200 w-[480px] h-96">SVG 예정</div>
-              <div className="bg-blue-200 w-64 h-24 items-center">
-                기상 주의보 유무 Alart
-              </div>
-              <div className="bg-red-200 w-[480px] h-96">게시글 내용</div>
-            </div>
+            <div className="bg-red-100 mx-32 h-96">게시글 내용</div>
           </div>
           <div>
-            <div className="bg-blue-100 mx-32 h-64 mt-20">
-              일기 예보 날짜별(1주 예정)
-            </div>
+            <div className="bg-blue-100 mx-32 h-64 mt-12">공지사항 List</div>
           </div>
         </main>
       </div>
