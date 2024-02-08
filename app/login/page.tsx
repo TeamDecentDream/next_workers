@@ -4,16 +4,15 @@ import KakaoOauthComponents from "@/src/components/Oauth/KakaoComponents";
 import Footer from "@/src/components/footer/Footer";
 import axios from "axios";
 import Image from "next/image";
-import { redirect } from "next/navigation";
-
-import {useEffect} from 'react'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 const GinServerBaseURL = "http://localhost:8080"
 
 
 export default function Login() {
+  const router = useRouter();
   
-
   useEffect(() => {
     if(sessionStorage.getItem('kakao')){
       const searchParams = new URLSearchParams(window.location.search);
@@ -26,7 +25,7 @@ export default function Login() {
         })
         .then((resp) => {
           sessionStorage.setItem("accessToken", resp.data);
-          redirect('/worker/main')
+          router.replace('/worker/main')
         })
         .catch((err) => {
           console.log(err);
@@ -74,6 +73,7 @@ export default function Login() {
           }}
         >
           로 그 인
+          
         </button> */}
         <KakaoOauthComponents></KakaoOauthComponents>
       </div>
