@@ -8,11 +8,9 @@ import { FC } from "react";
 const Main: FC = () => {
   return (
     <div>
-      <div className="flex">
-        <div className="">
-          <Navbar />
-        </div>
-        <main className="w-[1440px] h-full grow">
+      <div className="flex min-w-[1440px]">
+         <Navbar />
+         <main className="w-3/4 min-w-[1140px] h-full grow">
           <div>
             <div className="font-bold w-32 text-3xl mx-6 mt-12">공지사항</div>
             <div className="ml-[90%]">

@@ -11,7 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         darkGreen: "#00B050",
-        lightGreen: "#A0E557",
+        lightGreen: "rgba(160,229,87,0.64)",
         nextBlue: "#3396F4",
         nextPurple: "#7C33F4"
       }
