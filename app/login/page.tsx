@@ -1,36 +1,41 @@
 "use client";
 
+import KakaoOauthComponents from "@/src/components/Oauth/KakaoComponents";
 import Footer from "@/src/components/footer/Footer";
-import Image from "next/image";
-
-import { redirect } from "next/navigation";
 import axios from "axios";
-import { useEffect } from "react";
+import Image from "next/image";
+import { redirect } from "next/navigation";
 
-const GinServerBaseURL = "http://localhost:8080";
+import {useEffect} from 'react'
+
+const GinServerBaseURL = "http://localhost:8080"
+
 
 export default function Login() {
+  
+
   useEffect(() => {
-    if (sessionStorage.getItem("kakao")) {
+    if(sessionStorage.getItem('kakao')){
       const searchParams = new URLSearchParams(window.location.search);
       const credentailcode = searchParams.get("code");
       sessionStorage.removeItem("kakao");
       axios
         .post(GinServerBaseURL + `/member/login`, {
           provider: "kakao",
-          Code: credentailcode
+          Code: credentailcode,
         })
         .then((resp) => {
           sessionStorage.setItem("accessToken", resp.data);
-          redirect("/worker/main");
+          redirect('/worker/main')
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, []);
-
+  }, [])
+  
   return (
+    
     <div className="min-w-[1024px] w-full">
       <div className="flex flex-col justify-center items-center min-h-[768px] h-[96vh]">
         <h1 className="font-bold text-6xl" style={{ color: "rgb(0,176,80)" }}>
@@ -44,7 +49,7 @@ export default function Login() {
           width={300}
           height={300}
         />
-        <form className="mt-5">
+        {/* <form className="mt-5">
           <fieldset className="w-[336px]">
             <legend className="font-bold">아이디</legend>
             <input
@@ -69,7 +74,8 @@ export default function Login() {
           }}
         >
           로 그 인
-        </button>
+        </button> */}
+        <KakaoOauthComponents></KakaoOauthComponents>
       </div>
       <Footer />
     </div>
