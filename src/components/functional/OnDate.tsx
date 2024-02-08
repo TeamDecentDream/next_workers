@@ -11,7 +11,19 @@ const OnDate = () => {
     return () => clearInterval(dateId);
   }, []);
 
-  return <div>{date.toLocaleDateString()}</div>;
+  const getDayOfWeek = (date: Date) => {
+    const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+    return daysOfWeek[date.getDay()];
+  };
+
+  const formattedDate = `${date.getFullYear()}.${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}.${date
+    .getDate()
+    .toString()
+    .padStart(2, "0")}(${getDayOfWeek(date)})`;
+
+  return <div>{formattedDate}</div>;
 };
 
 export default OnDate;
