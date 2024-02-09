@@ -2,15 +2,31 @@
 
 import Link from "next/link";
 import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 
+interface ConnectWalletButtonProps {
+  isConnectd: boolean|undefined;
+  setIsConnectd: Dispatch<SetStateAction<boolean|undefined>>
+  address: string | undefined;
+  setAddress: Dispatch<SetStateAction<string|undefined>>
+}
 
-export const ConnectWalletButton = () => {
+export const ConnectWalletButton:FC<ConnectWalletButtonProps> = ({isConnectd, setIsConnectd,address, setAddress}) => {
   const { sdk, connected, connecting, account } = useSDK();
+
+  useEffect(()=>{
+    setIsConnectd(connected)
+    setAddress(account)
+  },[connected])
+
+  useEffect(()=>{
+    setAddress(account)
+  },[account])
 
   const connect = async () => {
     try {
+      console.log(sdk)
       await sdk?.connect();
-      console.log("1")
     } catch (err) {
       console.warn(`No accounts found`, err);
     }
@@ -20,22 +36,25 @@ export const ConnectWalletButton = () => {
     if (sdk) {
       sdk.terminate();
     }
-  };
+  }; 
 
   return (
-    <div className="relative">
+    <div className="relative mt-4">
       {connected ? (
         <>
-        <p>{account}</p>
-            <button
-              onClick={disconnect}
-              className="block w-full pl-2 pr-4 py-2 text-left text-[#F05252] hover:bg-gray-200"
-            >
-              Disconnect
-            </button>
+          <button
+            onClick={disconnect}
+            className="border-solid border-orange-600 border-2 rounded-xl py-1.5 px-4 text-white bg-orange-500 hover:text-orange-500 hover:bg-white"
+          >
+            Disconnect
+          </button>
         </>
       ) : (
-        <button disabled={connecting} onClick={connect}>
+        <button
+          className="border-solid border-orange-600 border-2 rounded-xl py-1.5 px-4 text-white bg-orange-500 hover:text-orange-500 hover:bg-white"
+          disabled={connecting}
+          onClick={connect}
+        >
           Connect Wallet
         </button>
       )}

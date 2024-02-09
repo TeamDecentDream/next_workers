@@ -4,6 +4,7 @@ import KakaoOauthComponents from "@/src/components/Oauth/KakaoComponents";
 import Footer from "@/src/components/footer/Footer";
 import axios from "axios";
 import Image from "next/image";
+import farmMain from "../../public/images/free-icon-farm-house-1188022.png"
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
@@ -25,10 +26,11 @@ export default function Login() {
         })
         .then((resp) => {
           sessionStorage.setItem("accessToken", resp.data);
-          router.replace('/worker/main')
+          router.replace('/login/metamask')
         })
         .catch((err) => {
           console.log(err);
+          router.replace('/login')
         });
     }
   }, [])
@@ -43,7 +45,7 @@ export default function Login() {
         <h3 className="text-3xl font-extrabold">for Workers</h3>
 
         <Image
-          src="/assets/images/free-icon-farm-house-1188022.png"
+          src={farmMain}
           alt="Main"
           width={300}
           height={300}

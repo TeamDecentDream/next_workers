@@ -1,7 +1,15 @@
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
-const NavbarBtns: FC = () => {
+interface NavbarBtnsProps {
+  role:Array<any>
+}
+
+const NavbarBtns: FC<NavbarBtnsProps> = ({role}) => {
+  useEffect(()=>{
+    console.log(role)
+  },[role])
+
   return (
     <div className="flex flex-col mt-16 gap-8 items-center font-bold">
       <Link href="./notice">공지사항</Link>
