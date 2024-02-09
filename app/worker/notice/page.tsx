@@ -8,11 +8,11 @@ import { FC } from "react";
 const Notice: FC = () => {
   return (
     <div>
-      <div className="flex">
-        <div className="">
-          <Navbar />
-        </div>
-        <main className="w-[1440px] h-full grow">
+      <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
+        
+        <Navbar />
+        
+        <main className="min-w-[1140px] w-full h-full flex flex-col">
           <div className="font-bold w-32 text-3xl mx-6 mt-6">공지사항</div>
           <div className="ml-[90%]">
             <OnDate />
@@ -25,14 +25,15 @@ const Notice: FC = () => {
               <div>날짜</div>
               <div>작성자</div>
             </div>
-            <div className="bg-red-100 mx-32 h-96">게시글 내용</div>
+            <div className="bg-red-100 mx-32 h-96 overflow-y-auto">게시글 내용</div>
           </div>
           <div>
             <div className="bg-blue-100 mx-32 h-64 mt-12">공지사항 List</div>
           </div>
+          <Footer />
         </main>
       </div>
-      <Footer />
+
     </div>
   );
 };

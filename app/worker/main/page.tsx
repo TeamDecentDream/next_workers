@@ -16,6 +16,7 @@ const Main: FC = () => {
           <OnDate />
           <button>출근</button>
         </div>
+
         <div>
           <div className="flex justify-between h-[200px]">
             <div className="w-1/2 pl-12 h-full">
@@ -42,7 +43,6 @@ const Main: FC = () => {
           </div>
 
           <div className="h-[300px] flex justify-between p-8">
-
             <div className="w-1/2 h-[300px]">
               <div className="font-bold text-3xl px-4 text-left">농장상황</div>
               <div className="w-full h-[264px] flex flex-col items-center justyfy-center">
@@ -140,8 +140,8 @@ const Main: FC = () => {
               </div>
             </div>
           </div>
-          <Footer />
         </div>
+        <Footer />
       </main>
     </div>
   );
