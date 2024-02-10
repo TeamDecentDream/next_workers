@@ -10,3 +10,10 @@ export const ping = createAsyncThunk("memberSlice/ping", async () => {
     return { data , status }
 });
 
+export const login = createAsyncThunk("memberSlice/login", async (body) => {
+    const resp = await axios.post(`${BACK_SERVER_URL}/member/login`,body);
+    const status = resp.status;
+    const data = resp.headers.getAuthorization();
+    console.log(status, data)
+    return { data , status }
+})

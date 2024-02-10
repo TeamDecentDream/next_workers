@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Navbar: FC = () => {
   return (
-    <div className="w-[300px] min-h-full bg-lightGreen">
+    <div className="w-1/4 min-w-[300px] min-h-full bg-lightGreen">
       <div className="flex flex-col">
         <div className="flex flex-col items-center">
           <Link href="./main">
