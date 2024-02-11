@@ -4,6 +4,10 @@ import Link from "next/link";
 import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 
 const GinServerBaseURL = "http://localhost:8080";
 
@@ -21,6 +25,8 @@ export const ConnectWalletButton: FC<ConnectWalletButtonProps> = ({
   setAddress,
 }) => {
   const { sdk, connected, connecting, account } = useSDK();
+  const router:AppRouterInstance = useRouter();
+  const Auth:any = useSelector<any>(state => state.authReducer)
 
   useEffect(() => {
     setIsConnectd(connected);
@@ -28,14 +34,15 @@ export const ConnectWalletButton: FC<ConnectWalletButtonProps> = ({
   }, [connected]);
 
   useEffect(() => { 
-    const rawToken: string | null = sessionStorage.getItem("accessToken");
-    if (rawToken && account) {
-      const accessToken: string = rawToken.substring(16, rawToken.length - 4);
+    console.log(Auth.accessToken)
+    if (Auth.accessToken && account) {
+      console.log(Auth.accessToken)
       console.log(account);
       axios
-      .post(GinServerBaseURL + `/member/wallet`, {addr:account}, {headers: { Authorization: accessToken}})
+      .post(GinServerBaseURL + `/member/wallet`, {addr:account}, {headers: { Authorization: Auth.accessToken}})
       .then((resp) => {
         console.log(resp);
+        router.replace('/worker/main')
       })
       .catch((err)=>{
         console.log(err);

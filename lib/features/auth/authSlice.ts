@@ -1,15 +1,17 @@
-import {createSlice} from "@reduxjs/toolkit";
-import { ping } from "./authTunk";
+import {PayloadAction, createSlice} from "@reduxjs/toolkit";
+import { ping, snsLogin } from "./authTunk";
 
 
-const memberSlice = createSlice({
+const authSlice = createSlice({
     name:"memberSlice",
     initialState:{
         isLoading:false,
+        address:"",
+        accessToken:"",
         pong:false
     },
     reducers: {
-
+        
     },
     extraReducers: (builder) => {
         builder.addCase(ping.pending, (state)=>{
@@ -22,7 +24,18 @@ const memberSlice = createSlice({
         builder.addCase(ping.rejected, (state)=>{
             state.isLoading=false;
         })
+        builder.addCase(snsLogin.pending, (state)=>{
+            state.isLoading=true;
+        })
+        builder.addCase(snsLogin.fulfilled, (state, action:any)=>{
+            state.isLoading=false;
+            const token:string = action.payload.data.substring(16, action.payload.data.length - 4)
+            state.accessToken=token
+        })
+        builder.addCase(snsLogin.rejected, (state)=>{
+            state.isLoading=false;
+        })
     }
 })
 
-export default memberSlice;
+export default authSlice;

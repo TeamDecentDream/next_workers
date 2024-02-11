@@ -7,35 +7,47 @@ import Image from "next/image";
 import farmMain from "../../public/images/free-icon-farm-house-1188022.png"
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { snsLogin } from "@/lib/features/auth/authTunk";
+
 
 const GinServerBaseURL = "http://localhost:8080"
 
 
 export default function Login() {
   const router = useRouter();
+  const dispatch:any = useDispatch();
+  const Auth:any = useSelector<any>(state => state.authReducer)
   
   useEffect(() => {
     if(sessionStorage.getItem('kakao')){
       const searchParams = new URLSearchParams(window.location.search);
-      const credentailcode = searchParams.get("code");
+      const credentailcode:any = searchParams.get("code");
       sessionStorage.removeItem("kakao");
-      axios
-        .post(GinServerBaseURL + `/member/login`, {
-          provider: "kakao",
-          Code: credentailcode,
-        })
-        .then((resp) => {
-          sessionStorage.setItem("accessToken", resp.data);
-          router.replace('/login/metamask')
-        })
-        .catch((err) => {
-          console.log(err);
-          alert('Login 실패ㅠㅠ')
-          router.replace('/login')
-        });
+      dispatch(snsLogin({code:credentailcode}));
+      // axios
+      //   .post(GinServerBaseURL + `/member/login`, {
+      //     provider: "kakao",
+      //     Code: credentailcode,
+      //   })
+      //   .then((resp) => {
+      //     sessionStorage.setItem("accessToken", resp.data);
+      //     router.replace('/login/metamask')
+      //   }) 
+      //   .catch((err) => {
+      //     console.log(err);
+      //     alert('Login 실패ㅠㅠ')
+      
+      //   });
     }
   }, [])
   
+  useEffect(()=>{
+    console.log(Auth)
+    if(Auth.accessToken)
+    router.replace('/login/metamask')
+  },[Auth.accessToken])
+
   return (
     
     <div className="min-w-[1024px] w-full">
