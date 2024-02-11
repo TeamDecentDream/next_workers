@@ -3,30 +3,52 @@
 import Link from "next/link";
 import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
+import axios from "axios";
+
+const GinServerBaseURL = "http://localhost:8080";
 
 interface ConnectWalletButtonProps {
-  isConnectd: boolean|undefined;
-  setIsConnectd: Dispatch<SetStateAction<boolean|undefined>>
+  isConnectd: boolean | undefined;
+  setIsConnectd: Dispatch<SetStateAction<boolean | undefined>>;
   address: string | undefined;
-  setAddress: Dispatch<SetStateAction<string|undefined>>
+  setAddress: Dispatch<SetStateAction<string | undefined>>;
 }
 
-export const ConnectWalletButton:FC<ConnectWalletButtonProps> = ({isConnectd, setIsConnectd,address, setAddress}) => {
+export const ConnectWalletButton: FC<ConnectWalletButtonProps> = ({
+  isConnectd,
+  setIsConnectd,
+  address,
+  setAddress,
+}) => {
   const { sdk, connected, connecting, account } = useSDK();
 
-  useEffect(()=>{
-    setIsConnectd(connected)
-    setAddress(account)
-  },[connected])
+  useEffect(() => {
+    setIsConnectd(connected);
+    setAddress(account);
+  }, [connected]);
 
-  useEffect(()=>{
-    setAddress(account)
-  },[account])
+  useEffect(() => { 
+    const rawToken: string | null = sessionStorage.getItem("accessToken");
+    if (rawToken && account) {
+      const accessToken: string = rawToken.substring(16, rawToken.length - 4);
+      console.log(account);
+      axios
+      .post(GinServerBaseURL + `/member/wallet`, {addr:account}, {headers: { Authorization: accessToken}})
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    }
+    setAddress(account);
+  }, [account]);
 
   const connect = async () => {
     try {
-      console.log(sdk)
+      console.log(sdk);
       await sdk?.connect();
+      
     } catch (err) {
       console.warn(`No accounts found`, err);
     }
@@ -36,7 +58,7 @@ export const ConnectWalletButton:FC<ConnectWalletButtonProps> = ({isConnectd, se
     if (sdk) {
       sdk.terminate();
     }
-  }; 
+  };
 
   return (
     <div className="relative mt-4">

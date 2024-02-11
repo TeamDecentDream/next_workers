@@ -51,6 +51,7 @@ export const MetaMaskLogin = () => {
         <h3 className="text-3xl font-extrabold">for Workers</h3>
 
         <Image src={MetaMaskLogo} alt="Main" width={300} height={300} />
+        
         <MetaMaskProvider debug={false} sdkOptions={sdkOptions}>
           <ConnectWalletButton 
           isConnectd={isConnectd}
@@ -59,6 +60,7 @@ export const MetaMaskLogin = () => {
           setAddress={setAddress}
           />
         </MetaMaskProvider>
+        
       </div>
       <Footer />
     </div>

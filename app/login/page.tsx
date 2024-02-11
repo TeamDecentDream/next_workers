@@ -30,6 +30,7 @@ export default function Login() {
         })
         .catch((err) => {
           console.log(err);
+          alert('Login 실패ㅠㅠ')
           router.replace('/login')
         });
     }

@@ -30,7 +30,9 @@ const Main: FC = () => {
                 </ul>
               </div>
               <div className="text-right pr-8">
-                <a className="cursor-pointer hover:text-blue-500">게시글 더보기 {">"}</a>
+                <a className="cursor-pointer hover:text-blue-500">
+                  게시글 더보기 {">"}
+                </a>
               </div>
             </div>
 
@@ -78,7 +80,9 @@ const Main: FC = () => {
           </div>
 
           <div className="h-[311px] p-8">
-            <div className="font-bold text-3xl bg-red-100 mb-6 px-4">주간예보</div>
+            <div className="font-bold text-3xl bg-red-100 mb-6 px-4">
+              주간예보
+            </div>
             <div className="h-[161px] bg-red-300">
               <div className="flex gap-8 justify-center">
                 <div>
