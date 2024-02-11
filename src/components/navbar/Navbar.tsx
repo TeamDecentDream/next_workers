@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 const Navbar: FC = () => {
   const [name , setName] = useState<string>("");
   const [role , setRole] = useState<Array<any>>([]);
+  const [color , setColor] = useState<string>("");
 
 
   useEffect(()=>{
@@ -17,13 +18,27 @@ const Navbar: FC = () => {
     console.log(claim.authorities)
     setName(claim.name);
     setRole(claim.authorities);
+    switch (claim.authorities[0].Role) {
+      case "ROLE_WOKRER":
+        setColor("bg-lightGreen")
+        break;
+        case "ROLE_PRIME":
+          setColor("bg-nextBlue")
+        break;
+        case "ROLE_ADMIN":
+          setColor("bg-nextPurple")
+        break;
+    
+      default:
+        setColor("bg-lightGreen")
+        break;
+    }
   }
   },[])
-
   
 
   return (
-    <div className="w-1/4 min-w-[300px] h-full bg-lightGreen">
+    <div className={`w-1/4 min-w-[300px] h-full ${color}`}>
       <div className="flex flex-col">
         <div className="flex flex-col items-center">
           <Link className="mt-8" href="./main">

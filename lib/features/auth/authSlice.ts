@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { ping } from "../thunk/memberThunk";
+import { ping } from "./authTunk";
+
 
 const memberSlice = createSlice({
     name:"memberSlice",
@@ -14,10 +15,8 @@ const memberSlice = createSlice({
         builder.addCase(ping.pending, (state)=>{
             state.isLoading=true;
         })
-        builder.addCase(ping.fulfilled, (state,action)=>{
-            console.log(action);
+        builder.addCase(ping.fulfilled, (state,action:any)=>{
             state.isLoading=false;
-            console.log(action.payload === "pong");
             state.pong = action.payload === "pong";
         })
         builder.addCase(ping.rejected, (state)=>{
@@ -26,5 +25,4 @@ const memberSlice = createSlice({
     }
 })
 
-export const { setPage, setCategory } = memberSlice.actions;
 export default memberSlice;

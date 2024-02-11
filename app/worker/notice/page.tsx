@@ -7,7 +7,7 @@ import { FC } from "react";
 
 const Notice: FC = () => {
   return (
-    <div>
+    
       <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
         
         <Navbar />
@@ -25,16 +25,29 @@ const Notice: FC = () => {
               <div>날짜</div>
               <div>작성자</div>
             </div>
-            <div className="bg-red-100 mx-32 h-96 overflow-y-auto">게시글 내용</div>
+            <div className="mx-32 h-96 overflow-y-auto bg-slate-200 p-4 rounded-[20px]">게시글 내용</div>
           </div>
+          <hr className="mt-6 border-1 border-gray-300 border-solid"/>
           <div>
-            <div className="bg-blue-100 mx-32 h-64 mt-12">공지사항 List</div>
+            <div className="relative mx-32 h-64 mt-6 ">
+              <h1 className="text-xl font-bold">공지사항 List</h1>
+              <div className="absolute bottom-4 right-4 flex gap-4">
+                <button>이전</button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>다음</button>
+              </div>
+            </div>
           </div>
           <Footer />
         </main>
       </div>
 
-    </div>
+    
   );
 };
 
