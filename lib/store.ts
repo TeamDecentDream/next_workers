@@ -1,8 +1,8 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-const memberSlice = require("./slice/memberSlice").default;
+const authSlice = require("./features/auth/authSlice").default;
 
 const rootReducer = combineReducers({
-    memberSlice: memberSlice.reducer,
+    authReducer: authSlice.reducer,
 });
 
 const store = configureStore({

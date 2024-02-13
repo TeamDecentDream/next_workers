@@ -1,13 +1,42 @@
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
-const NavbarBtns: FC = () => {
+interface NavbarBtnsProps {
+  role:Array<any>
+}
+
+const NavbarBtns: FC<NavbarBtnsProps> = ({role}) => {
+  useEffect(()=>{
+    if(role[0]){
+      console.log(role[0].Role)
+    }
+  },[role])
+
   return (
     <div className="flex flex-col mt-16 gap-8 items-center font-bold">
+      {role[0] && (
+        role[0].Role === "ROLE_ADMIN" ||
+        role[0].Role === "ROLE_WORKER" ||
+        role[0].Role === "ROLE_PRIME"
+        ) ?<>
       <Link href="./notice">공지사항</Link>
       <Link href="./todo">할 일 관리</Link>
       <Link href="./weather">일기예보</Link>
       <Link href="./significant">특이사항 보고</Link>
+      </> :<></>}
+      {role[0] && (role[0].Role === "ROLE_ADMIN" || role[0].Role === "ROLE_PRIME") ? 
+      <Link href="./significant">특이사항 알림</Link>
+      : <></>
+      }
+      {role[0] && role[0].Role === "ROLE_PRIME" ? 
+      <Link href="./defi">농부평가</Link>
+      :<></>}      
+      {role[0] && role[0].Role === "ROLE_ADMIN" ? 
+      <>
+      <Link href="./significant">거래내역</Link>
+      <Link href="./defi">전체농가상황</Link>
+      </>
+      :<></>}
       <Link href="./defi">DeFi</Link>
     </div>
   );
