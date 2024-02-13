@@ -3,11 +3,10 @@
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Navbar from "@/src/components/navbar/Navbar";
-import Image from "next/image";
 import { FC } from "react";
-import monitoring from "/public/images/monitoring.png";
 
 import OnWork from "@/src/components/onwork/OnWork";
+import YouTube from "react-youtube"; //
 
 const CCTV: FC = () => {
   return (
@@ -18,14 +17,29 @@ const CCTV: FC = () => {
           <OnDate />
           <OnWork />
         </div>
-        <div className="bg-red-200 min-w-[1140px] mb-8">
+        <div className=" min-w-[1140px] mb-6">
           <h1 className="font-bold w-full text-3xl">CCTV 관리</h1>
           <h3 className="font-semibold text-lg mt-4"> 스마트팜 토마토</h3>
         </div>
         <div>
           <div>
-            <div className="flex min-w-[1140px] min-h-[500px] bg-red-200">
-              <video src="https://www.youtube.com/watch?v=-JhoMGoAfFc"></video>
+            <div className="flex min-w-[1140px] min-h-[500px]">
+              <YouTube
+                videoId="-JhoMGoAfFc" //동영상 주소
+                opts={{
+                  width: "1140px",
+                  height: "620px",
+                  playerVars: {
+                    autoplay: 1, //자동 재생 여부
+                    modestbranding: 1, //컨트롤 바에 유튜브 로고 표시 여부
+                    loop: 1, //반복 재생
+                    playlist: "-JhoMGoAfFc" //반복 재생으로 재생할 플레이 리스트
+                  }
+                }}
+                onReady={(e) => {
+                  e.target.mute(); //소리 끔
+                }}
+              />
             </div>
           </div>
           <ul>
