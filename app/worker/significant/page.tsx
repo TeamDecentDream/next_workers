@@ -6,7 +6,7 @@ import Navbar from "@/src/components/navbar/Navbar";
 import OnWork from "@/src/components/onwork/OnWork";
 import { FC } from "react";
 
-const Notice: FC = () => {
+const Significant: FC = () => {
   return (
     <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
       <Navbar />
@@ -37,4 +37,4 @@ const Notice: FC = () => {
   );
 };
 
-export default Notice;
+export default Significant;

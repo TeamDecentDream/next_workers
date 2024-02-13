@@ -7,6 +7,7 @@ import Image from "next/image";
 import { FC } from "react";
 import goals from "/public/images/goals.png";
 import sand from "/public/images/sand.png";
+import OnWork from "@/src/components/onwork/OnWork";
 
 const Main: FC = () => {
   return (
@@ -15,7 +16,7 @@ const Main: FC = () => {
       <main className="min-w-[1140px] w-full h-full flex flex-col">
         <div className="flex justify-end gap-8 p-4 pr-8">
           <OnDate />
-          <button>출근</button>
+          <OnWork />
         </div>
 
         <div>
