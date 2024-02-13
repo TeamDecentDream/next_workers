@@ -3,10 +3,22 @@
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Navbar from "@/src/components/navbar/Navbar";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, ChangeEventHandler, FC, useState } from "react";
 
-const Significant: FC = () => {
+const Evaluation: FC = () => {
   const [workJournals, setWorkJournals] = useState<Array<number>>([0,0,0,0,0,0]);
+  const [textValue, setTextValue] = useState<string>("");
+
+  const handleSubmit = () => {
+    
+    // axios.post()
+    setWorkJournals([0,0,0,0,0,0])
+    setTextValue("");
+  }
+
+  const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setTextValue(e.target.value);
+  }
 
   const handleRadioChange = (index: number, score: number) => {
     setWorkJournals(prevWorkJournals => {
@@ -37,7 +49,7 @@ const Significant: FC = () => {
           <div className="mx-32 h-96 overflow-y-auto bg-slate-100 p-4 rounded-[20px] flex">
             <div className="h-full w-1/2">
               <div className="w-full h-1/3">
-                <p>
+                <p className="font-semibold">
                   작업 일지를 정확하게 작성하고 일정을 지키는 데 신경 쓰고 있나?
                 </p>
                 <div className="flex justify-between p-4">
@@ -94,7 +106,7 @@ const Significant: FC = () => {
                 </div>
               </div>
               <div className="w-full h-1/3">
-                <p>농부는 농작물을 관리하고 유지보수하는 데 꼼꼼한가?</p>
+                <p className="font-semibold">농부는 농작물을 관리하고 유지보수하는 데 꼼꼼한가?</p>
                 <div className="flex justify-between p-4">
                 <label>
                   <input
@@ -150,7 +162,7 @@ const Significant: FC = () => {
                 
               </div>
               <div className="w-full h-1/3">
-                <p>새로운 농업 기술 및 방법을 학습하고 적용하는 데 적극적인가?</p>
+                <p className="font-semibold">새로운 농업 기술 및 방법을 학습하고 적용하는 데 적극적인가?</p>
                 <div className="flex justify-between p-4">
                 <label>
                   <input
@@ -207,7 +219,7 @@ const Significant: FC = () => {
             </div>
             <div className="h-full w-1/2 ">
               <div className="w-full h-1/3">
-                <p>특이사항이 발생 할 때의 대처가 적절한가?</p>
+                <p className="font-semibold">특이사항이 발생 할 때의 대처가 적절한가?</p>
                 <div className="flex justify-between p-4">
                 <label>
                   <input
@@ -262,7 +274,7 @@ const Significant: FC = () => {
                 </div>
               </div>
               <div className="w-full h-1/3">
-                <p>출/퇴근 시간이 정확한가?</p>
+                <p className="font-semibold">출/퇴근 시간이 정확한가?</p>
                 <div className="flex justify-between p-4">
                 <label>
                   <input
@@ -317,7 +329,7 @@ const Significant: FC = () => {
                 </div>
                 </div>
               <div className="w-full h-1/3">
-                <p>다른 농부와의 관계가 우호적인가?</p>
+                <p className="font-semibold">다른 농부와의 관계가 우호적인가?</p>
                 <div className="flex justify-between p-4">
                 <label>
                   <input
@@ -378,8 +390,9 @@ const Significant: FC = () => {
         <div>
           <div className="relative mx-32 h-64 mt-6 flex flex-col">
             <h1 className="text-xl font-bold">비고</h1>
-            <textarea className="grow border-2 border-gray-300 border-solid resize-none p-4 focus:outline-gray-300  rounded-[20px]"></textarea>
-            <button className="w-full border-2 border-gray-500 border-solid rounded-md">제출하기</button>
+            <textarea className="grow border-2 border-gray-300 border-solid resize-none p-4 focus:outline-gray-300  rounded-[20px]"
+            onChange={handleTextChange} value={textValue}></textarea>
+            <button className="w-full border-2 border-gray-500 border-solid rounded-md" onClick={handleSubmit}>제출하기</button>
           </div>
         </div>
         <Footer />
@@ -388,4 +401,4 @@ const Significant: FC = () => {
   );
 };
 
-export default Significant;
+export default Evaluation;
