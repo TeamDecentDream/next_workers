@@ -8,7 +8,7 @@ import farmMain from "../../public/images/free-icon-farm-house-1188022.png"
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { snsLogin } from "@/lib/features/auth/authTunk";
+import { snsLogin } from "@/lib/features/auth/authThunk";
 
 
 const GinServerBaseURL = "http://localhost:8080"

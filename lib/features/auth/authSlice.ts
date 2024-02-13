@@ -1,9 +1,9 @@
 import {PayloadAction, createSlice} from "@reduxjs/toolkit";
-import { ping, snsLogin } from "./authTunk";
+import { ping, snsLogin } from "./authThunk";
 
 
 const authSlice = createSlice({
-    name:"memberSlice",
+    name:"authSlice",
     initialState:{
         isLoading:false,
         address:"",
@@ -19,7 +19,7 @@ const authSlice = createSlice({
         })
         builder.addCase(ping.fulfilled, (state,action:any)=>{
             state.isLoading=false;
-            state.pong = action.payload === "pong";
+            state.pong = (action.payload === "pong");
         })
         builder.addCase(ping.rejected, (state)=>{
             state.isLoading=false;
@@ -30,7 +30,7 @@ const authSlice = createSlice({
         builder.addCase(snsLogin.fulfilled, (state, action:any)=>{
             state.isLoading=false;
             const token:string = action.payload.data.substring(16, action.payload.data.length - 4)
-            state.accessToken=token
+            state.accessToken=token;
         })
         builder.addCase(snsLogin.rejected, (state)=>{
             state.isLoading=false;
