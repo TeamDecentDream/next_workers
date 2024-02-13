@@ -8,7 +8,7 @@ import { FC } from "react";
 import sun from "/public/images/sun.png";
 import OnWork from "@/src/components/onwork/OnWork";
 
-const Main: FC = () => {
+const Weather: FC = () => {
   return (
     <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
       <Navbar />
@@ -131,4 +131,4 @@ const Main: FC = () => {
   );
 };
 
-export default Main;
+export default Weather;
