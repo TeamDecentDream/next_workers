@@ -6,6 +6,8 @@ import Navbar from "@/src/components/navbar/Navbar";
 import Image from "next/image";
 import { FC } from "react";
 import goals from "/public/images/goals.png";
+import sand from "/public/images/sand.png";
+import OnWork from "@/src/components/onwork/OnWork";
 
 const Main: FC = () => {
   return (
@@ -14,7 +16,7 @@ const Main: FC = () => {
       <main className="min-w-[1140px] w-full h-full flex flex-col">
         <div className="flex justify-end gap-8 p-4 pr-8">
           <OnDate />
-          <button>출근</button>
+          <OnWork />
         </div>
 
         <div>
@@ -59,8 +61,10 @@ const Main: FC = () => {
               </div>
             </div>
 
-            <div className="w-1/2 h-[264px] mt-[36px] bg-red-100 flex items-center">
-              <div className="h-[192px] w-[192px] bg-blue-100 mr-8">이미지</div>
+            <div className="w-1/2 h-[264px] mt-[36px] flex items-center">
+              <div className="mr-8">
+                <Image src={sand} alt="sand" width={192} height={192} />
+              </div>
               <ul>
                 <li className="my-4">
                   현재 온도 : 18°C <br /> 설정온도 : 22°C
@@ -80,9 +84,7 @@ const Main: FC = () => {
           </div>
 
           <div className="h-[311px] p-8">
-            <div className="font-bold text-3xl bg-red-100 mb-6 px-4">
-              주간예보
-            </div>
+            <div className="font-bold text-3xl mb-6 px-4">주간예보</div>
             <div className="h-[161px] bg-red-300">
               <div className="flex gap-8 justify-center">
                 <div>

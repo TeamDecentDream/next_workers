@@ -4,27 +4,25 @@ import KakaoOauthComponents from "@/src/components/Oauth/KakaoComponents";
 import Footer from "@/src/components/footer/Footer";
 import axios from "axios";
 import Image from "next/image";
-import farmMain from "../../public/images/free-icon-farm-house-1188022.png"
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import farmMain from "../../public/images/free-icon-farm-house-1188022.png";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { snsLogin } from "@/lib/features/auth/authThunk";
 
-
-const GinServerBaseURL = "http://localhost:8080"
-
+const GinServerBaseURL = "http://localhost:8080";
 
 export default function Login() {
   const router = useRouter();
-  const dispatch:any = useDispatch();
-  const Auth:any = useSelector<any>(state => state.authReducer)
-  
+  const dispatch: any = useDispatch();
+  const Auth: any = useSelector<any>((state) => state.authReducer);
+
   useEffect(() => {
-    if(sessionStorage.getItem('kakao')){
+    if (sessionStorage.getItem("kakao")) {
       const searchParams = new URLSearchParams(window.location.search);
-      const credentailcode:any = searchParams.get("code");
+      const credentailcode: any = searchParams.get("code");
       sessionStorage.removeItem("kakao");
-      dispatch(snsLogin({code:credentailcode}));
+      dispatch(snsLogin({ code: credentailcode }));
       // axios
       //   .post(GinServerBaseURL + `/member/login`, {
       //     provider: "kakao",
@@ -33,23 +31,21 @@ export default function Login() {
       //   .then((resp) => {
       //     sessionStorage.setItem("accessToken", resp.data);
       //     router.replace('/login/metamask')
-      //   }) 
+      //   })
       //   .catch((err) => {
       //     console.log(err);
       //     alert('Login 실패ㅠㅠ')
-      
+
       //   });
     }
-  }, [])
-  
-  useEffect(()=>{
-    console.log(Auth)
-    if(Auth.accessToken)
-    router.replace('/login/metamask')
-  },[Auth.accessToken])
+  }, []);
+
+  useEffect(() => {
+    console.log(Auth);
+    if (Auth.accessToken) router.replace("/login/metamask");
+  }, [Auth.accessToken]);
 
   return (
-    
     <div className="min-w-[1024px] w-full">
       <div className="flex flex-col justify-center items-center min-h-[768px] h-[96vh]">
         <h1 className="font-bold text-6xl" style={{ color: "rgb(0,176,80)" }}>
@@ -57,12 +53,7 @@ export default function Login() {
         </h1>
         <h3 className="text-3xl font-extrabold">for Workers</h3>
 
-        <Image
-          src={farmMain}
-          alt="Main"
-          width={300}
-          height={300}
-        />
+        <Image src={farmMain} alt="Main" width={300} height={300} />
         {/* <form className="mt-5">
           <fieldset className="w-[336px]">
             <legend className="font-bold">아이디</legend>
