@@ -34,14 +34,10 @@ export const ConnectWalletButton: FC<ConnectWalletButtonProps> = ({
   }, [connected]);
 
   useEffect(() => { 
-    console.log(Auth.accessToken)
     if (Auth.accessToken && account) {
-      console.log(Auth.accessToken)
-      console.log(account);
       axios
       .post(GinServerBaseURL + `/member/wallet`, {addr:account}, {headers: { Authorization: Auth.accessToken}})
       .then((resp) => {
-        console.log(resp);
         router.replace('/worker/main')
       })
       .catch((err)=>{
@@ -49,11 +45,10 @@ export const ConnectWalletButton: FC<ConnectWalletButtonProps> = ({
       })
     }
     setAddress(account);
-  }, [account]);
+  }, [account, Auth.accessToken]);
 
   const connect = async () => {
     try {
-      console.log(sdk);
       await sdk?.connect();
       
     } catch (err) {

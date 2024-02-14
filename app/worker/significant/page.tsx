@@ -8,32 +8,47 @@ import { FC } from "react";
 
 const Significant: FC = () => {
   return (
-    <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
-      <Navbar />
-      <main className="min-w-[1140px] w-full h-full flex flex-col">
-        <div className="font-bold text-3xl mx-6 mt-14">특이사항 보고</div>
-        <div className="flex justify-end gap-8 p-4 pr-8">
-          <OnDate />
-          <OnWork />
-        </div>
-        <div>
-          <div className="min-h-[640px] p-4 my-8 px-4">
-            <ul className="grid grid-cols-2 text-center text-lg w-36">
-              <li className="w-32 mt-1">사항명</li>
-              <span className="ml-16 text-2xl">:</span>
-              <li className="w-32 mt-1">사업 중요도</li>
-              <span className="ml-16 text-2xl">:</span>
-              <li className="w-32 mt-1">사항 발견시각</li>
-              <span className="ml-16 text-2xl">:</span>
-              <li className="w-32 mt-4">비고</li>
-            </ul>
+    
+      <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
+        
+        <Navbar />
+        
+        <main className="min-w-[1140px] w-full h-full flex flex-col">
+          <div className="font-bold w-64 text-3xl mx-6 mt-6">특이사항 목록</div>
+          <div className="ml-[90%]">
+            <OnDate />
           </div>
-        </div>
-
-        <div></div>
-        <Footer />
-      </main>
-    </div>
+          <div>
+            <div className="ml-16 mb-4 flex items-center">
+              <p className="text-lg font-semibold">1월 평가 우수 직원 보너스 안내</p>
+              <button className="ml-10 border-solid border-green-500 border-[1px] p-1 rounded-md text-green-500 hover:text-white hover:bg-green-500">알리기</button>
+              <button className="ml-2 border-solid border-red-500 border-[1px] p-1 rounded-md text-red-500 hover:text-white hover:bg-red-500">내리기</button>
+            </div>
+            <div className="flex ml-24 gap-4 mb-6">
+              <div>날짜</div>
+              <div>작성자</div>
+            </div>
+            <div className="mx-32 h-96 overflow-y-auto bg-slate-200 p-4 rounded-[20px]">게시글 내용</div>
+          </div>
+          <hr className="mt-6 border-1 border-gray-300 border-solid"/>
+          <div>
+            <div className="relative mx-32 h-64 mt-6 ">
+              <h1 className="text-xl font-bold">특이사항 List</h1>
+              <div className="absolute bottom-4 right-4 flex gap-4">
+                <button>이전</button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>다음</button>
+              </div>
+            </div>
+          </div>
+          <Footer />
+        </main>
+      </div>
   );
 };
 
