@@ -12,7 +12,7 @@ const Infomation: FC = () => {
       <Navbar />
       <main className="min-w-[1140px] w-full h-full flex flex-col">
         <div className="font-bold text-3xl mx-6 mt-14">내 정보</div>
-        <div className="flex justify-end gap-8 p-4 pr-8">
+        <div className="flex justify-end mt-4 gap-8 p-4 pr-8">
           <OnDate />
           <OnWork />
         </div>
