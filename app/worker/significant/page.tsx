@@ -21,8 +21,8 @@ const Significant: FC = () => {
           <div>
             <div className="ml-16 mb-4 flex items-center">
               <p className="text-lg font-semibold">1월 평가 우수 직원 보너스 안내</p>
-              <button className="ml-10 border-solid border-green-500 border-[1px] p-1 rounded-md text-green-500 hover:text-white hover:bg-green-500">공지올리기</button>
-              <button className="ml-2 border-solid border-red-500 border-[1px] p-1 rounded-md text-red-500 hover:text-white hover:bg-red-500">공지내리기</button>
+              <button className="ml-10 border-solid border-green-500 border-[1px] p-1 rounded-md text-green-500 hover:text-white hover:bg-green-500">알리기</button>
+              <button className="ml-2 border-solid border-red-500 border-[1px] p-1 rounded-md text-red-500 hover:text-white hover:bg-red-500">내리기</button>
             </div>
             <div className="flex ml-24 gap-4 mb-6">
               <div>날짜</div>

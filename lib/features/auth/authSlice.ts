@@ -4,6 +4,7 @@ import { ping, snsLogin } from "./authThunk";
 const authSlice = createSlice({
   name: "authSlice",
   initialState: {
+    isLogin: false,
     isLoading: false,
     address: "",
     accessToken: "",
@@ -35,6 +36,7 @@ const authSlice = createSlice({
         action.payload.data.length - 4
       );
       state.accessToken = token;
+      state.isLogin = true;
     });
     builder.addCase(snsLogin.rejected, (state) => {
       state.isLoading = false;

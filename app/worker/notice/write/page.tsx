@@ -1,6 +1,6 @@
 "use client";
 
-import Navbar from "@/src/components/adminnavbar/Navbar";
+import Navbar from "@/src/components/navbar/Navbar";
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import NotificationInput from "@/src/components/notification/NotificationInput";
@@ -8,7 +8,7 @@ import React from "react";
 
 const NoticeWrite = () => {
   return (
-    <div>
+    
       <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
         <Navbar />
         <main className="min-w-[1140px] w-full h-full flex flex-col">
@@ -23,7 +23,7 @@ const NoticeWrite = () => {
           <Footer />
         </main>
       </div>
-    </div>
+    
   );
 };
 

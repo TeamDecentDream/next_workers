@@ -6,13 +6,17 @@ import axios from "axios";
 import Image from "next/image";
 import farmMain from "../../public/images/free-icon-farm-house-1188022.png";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { snsLogin } from "@/lib/features/auth/authThunk";
+import { ConnectWalletButton } from "@/src/components/metamask/metaBtn";
 
 const GinServerBaseURL = "http://localhost:8080";
 
 export default function Login() {
+  const [isConnectd, setIsConnectd] = useState<boolean>();
+  const [address, setAddress] = useState<string>();
+
   const router = useRouter();
   const dispatch: any = useDispatch();
   const Auth: any = useSelector<any>((state) => state.authReducer);
@@ -42,7 +46,7 @@ export default function Login() {
 
   useEffect(() => {
     console.log(Auth);
-    if (Auth.accessToken) router.replace("/login/metamask");
+    if (Auth.accessToken && address) router.replace("/worker/main");
   }, [Auth.accessToken]);
 
   return (
@@ -82,6 +86,12 @@ export default function Login() {
           
         </button> */}
         <KakaoOauthComponents></KakaoOauthComponents>
+        <ConnectWalletButton
+          isConnectd={isConnectd}
+          setIsConnectd={setIsConnectd}
+          address={address}
+          setAddress={setAddress}
+        />
       </div>
       <Footer />
     </div>

@@ -34,7 +34,6 @@ export const ConnectWalletButton: FC<ConnectWalletButtonProps> = ({
   }, [connected]);
 
   useEffect(() => { 
-    console.log(Auth.accessToken)
     if (Auth.accessToken && account) {
       console.log(Auth.accessToken)
       console.log(account);
@@ -49,7 +48,7 @@ export const ConnectWalletButton: FC<ConnectWalletButtonProps> = ({
       })
     }
     setAddress(account);
-  }, [account]);
+  }, [account, Auth.accessToken]);
 
   const connect = async () => {
     try {

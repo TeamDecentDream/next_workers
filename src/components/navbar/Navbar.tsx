@@ -5,14 +5,19 @@ import Image from "next/image";
 import Logo from "../../../public/images/Logo.png";
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const Navbar: FC = () => {
   const [name, setName] = useState<string>("");
   const [role, setRole] = useState<Array<any>>([]);
   const [color, setColor] = useState<string>("");
   const Auth: any = useSelector<any>((state) => state.authReducer);
+  const router = useRouter();
 
   useEffect(() => {
+    if (!Auth.isLogin){
+      router.replace('/login')
+    }
     if (Auth.accessToken) {
       const claim: any = jwtDecode(Auth.accessToken);
       console.log(claim.authorities);

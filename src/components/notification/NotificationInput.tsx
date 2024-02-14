@@ -1,7 +1,9 @@
 import axios from "axios";
 import { headers } from "next/headers";
+import { useRouter } from "next/navigation";
 import {useState, ChangeEvent} from "react";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const GinServerBaseURL = "http://localhost:8080"
 
@@ -15,6 +17,8 @@ const NotificationInput = () => {
         title:"",
         contents:""
     });
+    const Auth:any = useSelector<any>(state => state.authReducer)
+    const router = useRouter();
 
     const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setNotification(prevState => ({
@@ -33,21 +37,25 @@ const NotificationInput = () => {
       const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const rawToken: string | null = sessionStorage.getItem("accessToken");
-        if (rawToken && notification.contents.length>10 && notification.title.length>5) {
-          const accessToken: string = rawToken.substring(16, rawToken.length - 4);
+        
+        if (Auth.accessToken && notification.contents.length>2 && notification.title.length>2) {
           try {
             const response = await axios.post(
-              GinServerBaseURL + "/significant",
-              { notification },
+              GinServerBaseURL + "/notification",
+              { title: notification.title, contents:notification.contents },
               {
                 headers: {
-                  Authorization: accessToken
+                  Authorization: Auth.accessToken
                 }
               }
             );
             console.log(response.data);
-          
+            setNotification({
+              title:"",
+              contents:""
+          })
+          alert("공지사항 작성되었습니다.")
+          router.replace("/worker/notice")
           } catch (error) {
             console.log("공지사항 제출 중 오류");
             

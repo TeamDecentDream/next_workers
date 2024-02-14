@@ -13,8 +13,7 @@ import { useRouter } from "next/navigation";
 const GinServerBaseURL = "http://localhost:8080";
 
 export const MetaMaskLogin = () => {
-  const [isConnectd, setIsConnectd] = useState<boolean>();
-  const [address, setAddress] = useState<string>();
+  
 
   return (
     <div className="min-w-[1024px] w-full">
@@ -25,12 +24,7 @@ export const MetaMaskLogin = () => {
         <h3 className="text-3xl font-extrabold">for Workers</h3>
 
         <Image src={MetaMaskLogo} alt="Main" width={300} height={300} />
-        <ConnectWalletButton
-          isConnectd={isConnectd}
-          setIsConnectd={setIsConnectd}
-          address={address}
-          setAddress={setAddress}
-        />
+        
       </div>
       <Footer />
     </div>
