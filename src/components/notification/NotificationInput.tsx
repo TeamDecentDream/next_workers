@@ -49,7 +49,6 @@ const NotificationInput = () => {
                 }
               }
             );
-            console.log(response.data);
             setNotification({
               title:"",
               contents:""

@@ -37,7 +37,6 @@ const Notice: FC = () => {
   useEffect(() => {
     if (Auth.accessToken) {
       const claim: any = jwtDecode(Auth.accessToken);
-      console.log(claim.authorities);
       setRole(claim.authorities);
     }
     axios.get(GinServerBaseURL+'/notification/count',{headers:{Authorization:Auth.accessToken}})
@@ -49,7 +48,6 @@ const Notice: FC = () => {
 
     axios.get(GinServerBaseURL+`/notification?page=${page}`,{headers:{Authorization:Auth.accessToken}})
     .then((resp)=>{
-      console.log(resp)
       setList(resp.data)
       setDetail(resp.data[0])
     })

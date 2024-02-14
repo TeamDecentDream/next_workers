@@ -26,7 +26,6 @@ const Evaluation: FC = () => {
       updatedWorkJournals[index] = score;
       return updatedWorkJournals;
     });
-    console.log(workJournals)
   };
 
   return (

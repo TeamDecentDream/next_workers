@@ -20,7 +20,6 @@ const Navbar: FC = () => {
     }
     if (Auth.accessToken) {
       const claim: any = jwtDecode(Auth.accessToken);
-      console.log(claim.authorities);
       setName(claim.name);
       setRole(claim.authorities);
       switch (claim.authorities[0].Role) {
