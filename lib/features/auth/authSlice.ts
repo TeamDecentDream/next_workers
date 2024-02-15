@@ -37,7 +37,7 @@ const authSlice = createSlice({
       );
       state.accessToken = token;
       state.isLogin = true;
-    });
+    }); //(const token: string : 전역변수)
     builder.addCase(snsLogin.rejected, (state) => {
       state.isLoading = false;
     });
