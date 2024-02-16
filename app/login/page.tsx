@@ -26,7 +26,7 @@ export default function Login() {
       const searchParams = new URLSearchParams(window.location.search);
       const credentailcode: any = searchParams.get("code");
       sessionStorage.removeItem("kakao");
-      dispatch(snsLogin({ code: credentailcode }));
+      dispatch(snsLogin({ code: credentailcode , address : Auth.address}));
       // axios
       //   .post(GinServerBaseURL + `/member/login`, {
       //     provider: "kakao",
@@ -86,12 +86,7 @@ export default function Login() {
           
         </button> */}
         <KakaoOauthComponents></KakaoOauthComponents>
-        <ConnectWalletButton
-          isConnectd={isConnectd}
-          setIsConnectd={setIsConnectd}
-          address={address}
-          setAddress={setAddress}
-        />
+        <ConnectWalletButton/>
       </div>
       <Footer />
     </div>

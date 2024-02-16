@@ -54,8 +54,6 @@ const Notice: FC = () => {
     .catch((error)=>console.log(error))
   }, []);
 
-  
-
 
   return (
     
@@ -76,8 +74,8 @@ const Notice: FC = () => {
               :<></>}
             </div>
             <div className="flex ml-24 gap-4 mb-6">
-              <div>날짜 : {formatDate(detail.update_date)}</div>
-              <div>작성자 : {detail.author_id}</div>
+              <div>날짜 : {detail.update_date?formatDate(detail.update_date):""}</div>
+              <div>작성자 : {detail.author_id&&detail.author_id}</div>
             </div>
             <div className="mx-32 h-96 overflow-y-auto bg-slate-200 p-4 rounded-[20px]">{detail.contents}</div>
           </div>

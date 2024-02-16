@@ -26,12 +26,13 @@ const NotificationInput = () => {
           title: e.target.value
         }));
       };
-      const handleContents = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setNotification(prevState => ({
-          ...prevState,
-          contents: e.target.value
-        }));
-      };
+      
+    const handleContents = (e: ChangeEvent<HTMLTextAreaElement>) => {
+      setNotification(prevState => ({
+        ...prevState,
+        contents: e.target.value
+      }));
+    };
 
 
       const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

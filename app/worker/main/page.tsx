@@ -9,6 +9,7 @@ import goals from "/public/images/goals.png";
 import sand from "/public/images/sand.png";
 import OnWork from "@/src/components/onwork/OnWork";
 
+
 const Main: FC = () => {
   return (
     <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
@@ -16,7 +17,7 @@ const Main: FC = () => {
       <main className="min-w-[1140px] w-full h-full flex flex-col">
         <div className="flex justify-end gap-8 p-4 pr-8">
           <OnDate />
-          <OnWork />
+          <OnWork></OnWork>
         </div>
 
         <div>
