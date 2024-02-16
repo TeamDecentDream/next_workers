@@ -4,7 +4,8 @@ import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Pagination from "@/src/components/functional/Pagination";
 import Navbar from "@/src/components/navbar/Navbar";
-import TransactionDetail from "@/src/components/transaction/transactionDetail";
+import TransactionDetail from "@/src/components/transaction/TransactionDetail";
+
 import axios from "axios";
 import {
   ChangeEvent,

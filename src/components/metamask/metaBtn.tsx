@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useSDK, MetaMaskProvider } from "@metamask/sdk-react";
+import { useSDK } from "@metamask/sdk-react";
 import { FC, useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
@@ -63,7 +62,7 @@ export const ConnectWalletButton: FC = () => {
   return (
     <div className="relative mt-4">
       {account ? (
-        <div className="flex flex-col">
+        <div className="flex flex-col bg-">
           <button
             onClick={disconnect}
             className="border-solid border-orange-600 border-2 rounded-xl py-1.5 px-4 text-white bg-orange-500 hover:text-orange-500 hover:bg-white"
