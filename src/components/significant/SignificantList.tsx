@@ -20,7 +20,9 @@ const SignificantList:FC<SignificantListProps> = ({list,setDetail}) => {
   return (
     <div>
             {list && list.map((significant, index) => (
-                <div key={significant.id} className='flex justify-between cursor-pointer hover:text-cyan-500' onClick={()=>{setDetail(significant)}}>
+                <div key={significant.id} className='flex justify-between cursor-pointer hover:text-cyan-500' onClick={()=>{
+                    console.log(significant)
+                    setDetail(significant)}}>
                     {/* <h3 className='hover:text-cyan-500 hover:cursor-pointer' onClick={()=>{setDetail(notification)}}>{notification.title}</h3> */}
                     
                         <p>작성자 : {significant.author_id}</p>

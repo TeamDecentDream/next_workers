@@ -11,10 +11,12 @@ import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import Pagination from "@/src/components/functional/Pagination";
 import SignificantList from "@/src/components/significant/SignificantList";
+import { useRouter } from "next/navigation";
 
 const GinServerBaseURL = "http://localhost:8080"
 
 const Significant: FC = () => {
+  const router = useRouter()
   const Auth:any = useSelector<any>(state => state.authReducer)
   const [role, setRole] = useState<Array<any>>([]);
   const [detail , setDetail] = useState({});
@@ -31,6 +33,44 @@ const Significant: FC = () => {
     const minutes = ('0' + date.getMinutes()).slice(-2);
     return `${year}/${month}/${day} ${hours}:${minutes}`;
 };
+
+const decreaseSignificance = () => {
+  axios.put(GinServerBaseURL+'/significant',{
+    id:detail.id,
+    contents:detail.contents,
+    warn:0,
+    author_id:detail.author_id,
+    reg_date:detail.reg_date,
+    update_date:detail.update_date,
+  },{headers:{Authorization:Auth.accessToken}})
+  .then(resp=>{
+    console.log(resp)
+    setDetail(prev => ({
+      ...prev,
+      warn: 0
+    }));
+  })
+  .catch(err => {console.log(err)})
+}
+
+const increaseSignificance = () => {
+  axios.put(GinServerBaseURL+'/significant',{
+    id:detail.id,
+    contents:detail.contents,
+    warn:1,
+    author_id:detail.author_id,
+    reg_date:detail.reg_date,
+    update_date:detail.update_date,
+  },{headers:{Authorization:Auth.accessToken}})
+  .then(resp=>{
+    console.log(resp)
+    setDetail(prev => ({
+      ...prev,
+      warn: 1
+    }));
+  })
+  .catch(err => {console.log(err)})
+}
 
 useEffect(() => {
   if (Auth.accessToken) {
@@ -66,15 +106,19 @@ useEffect(() => {
           <div>
             <div className="ml-16 mb-4 flex items-center">
               {role[0] && role[0].Role === "ROLE_ADMIN"?
-              <><button className="ml-10 border-solid border-green-500 border-[1px] p-1 rounded-md text-green-500 hover:text-white hover:bg-green-500">알리기</button>
-              <button className="ml-2 border-solid border-red-500 border-[1px] p-1 rounded-md text-red-500 hover:text-white hover:bg-red-500">내리기</button></>
+              <>
+              <button className="ml-10 border-solid border-red-500 border-[1px] p-1 rounded-md text-red-500 hover:text-white hover:bg-red-500"
+              onClick={increaseSignificance}>알리기</button>
+              <button className="ml-2 border-solid border-green-500 border-[1px] p-1 rounded-md text-green-500 hover:text-white hover:bg-green-500"
+              onClick={decreaseSignificance}>내리기</button>
+              </>
               :<></>}
             </div>
             <div className="flex ml-24 gap-4 mb-6">
               <div>날짜 : {detail.update_date?formatDate(detail.update_date):""}</div>
               <div>작성자 : {detail.author_id&&detail.author_id}</div>
             </div>
-            <div className="mx-32 h-96 overflow-y-auto bg-slate-200 p-4 rounded-[20px]">{detail.contents}</div>
+            <div className={`mx-32 h-96 overflow-y-auto p-4 rounded-[20px] ${detail.warn == 1 ? 'bg-red-200' : 'bg-slate-200'}`}>{detail.contents}</div>
           </div>
           <hr className="mt-6 border-1 border-gray-300 border-solid"/>
           <div>
