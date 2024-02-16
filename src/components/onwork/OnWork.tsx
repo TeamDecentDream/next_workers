@@ -53,7 +53,7 @@ const OnWork: FC = () => {
 
   return (
     <div
-      className={`w-24 h-10 pt-[6px] text-lg text-center font-semibold text-${color} border-2 border-${color} rounded-lg cursor-pointer`}
+      className={`w-20 h-10 pt-[6px] text text-center font-semibold text-${color} border-2 border-${color} rounded-lg cursor-pointer`}
       onClick={handleWorkState}
     >
       {auth.workState ? "퇴 근" : "출 근"}

@@ -23,7 +23,7 @@ const OnDate = () => {
     .toString()
     .padStart(2, "0")}(${getDayOfWeek(date)})`;
 
-  return <div className="text-2xl p-1">{formattedDate}</div>;
+  return <div className="text-lg p-1">{formattedDate}</div>;
 };
 
 export default OnDate;
