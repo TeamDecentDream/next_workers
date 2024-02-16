@@ -11,13 +11,13 @@ const Infomation: FC = () => {
     <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
       <Navbar />
       <main className="min-w-[1140px] w-full h-full flex flex-col">
-        <div className="font-bold text-3xl mx-6 mt-14">내 정보</div>
-        <div className="flex justify-end gap-8 p-4 pr-8">
+        <div className="flex justify-end gap-8 p-4 pr-8 mt-4">
           <OnDate />
           <OnWork />
         </div>
+        <div className="font-bold text-3xl mx-12">내 정보</div>
         <div>
-          <div className="min-h-[640px] p-4 my-8 px-4">
+          <div className="min-h-[640px] p-4 my-8 px-40">
             <ul className="grid grid-cols-2 text-center w-32">
               <li className="w-32 mt-1">이름</li>
               <span className="ml-16 text-2xl">:</span>

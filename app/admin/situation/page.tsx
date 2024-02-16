@@ -14,7 +14,7 @@ const Situation: FC = () => {
     <div className="min-w-[1440px] min-h-[800px] w-full flex h-screen">
       <Navbar />
       <main className="min-w-[1140px] w-full h-full flex flex-col items-center justify-center">
-        <div className="w-full flex justify-end mt- gap-8 p-4 pr-8">
+        <div className="w-full flex justify-end mt-4 gap-8 p-4 pr-8">
           <OnDate />
           <OnWork />
         </div>

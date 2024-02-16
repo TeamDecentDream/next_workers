@@ -9,24 +9,24 @@ const authSlice = createSlice({
     isLoading: false,
     accessToken: "",
     pong: false,
-    address:"",
-    isConnected:false
+    address: "",
+    isConnected: false
   },
   reducers: {
     // 어플안에서
     setIsLogin: (state, action: PayloadAction<boolean>) => {
       state.isLogin = action.payload;
     },
-    setWorkState: (state, action: PayloadAction<string>)=> {
+    setWorkState: (state, action: PayloadAction<string>) => {
       state.workState = action.payload;
     },
-    setAccessToken: (state, action: PayloadAction<string>)=> {
+    setAccessToken: (state, action: PayloadAction<string>) => {
       state.accessToken = action.payload;
     },
-    setAddress: (state, action: PayloadAction<string>)=> {
+    setAddress: (state, action: PayloadAction<string>) => {
       state.address = action.payload;
     },
-    setIsConnected: (state, action: PayloadAction<boolean>)=> {
+    setIsConnected: (state, action: PayloadAction<boolean>) => {
       state.isConnected = action.payload;
     }
   },
@@ -59,23 +59,28 @@ const authSlice = createSlice({
       state.isLoading = false;
     });
 
-    builder.addCase(getWorkState.pending,(state)=>{
-      state.isLoading=true;
+    builder.addCase(getWorkState.pending, (state) => {
+      state.isLoading = true;
     });
-    builder.addCase(getWorkState.fulfilled,(state,action)=>{
-      if(action.payload.data.state){
-        console.log(action.payload.data.state)
-        state.workState=action.payload.data.state;
+    builder.addCase(getWorkState.fulfilled, (state, action) => {
+      if (action.payload.data.state) {
+        console.log(action.payload.data.state);
+        state.workState = action.payload.data.state;
       }
       console.log(action.payload.data.state);
-      state.isLoading=false;
+      state.isLoading = false;
     });
-    builder.addCase(getWorkState.rejected,(state)=>{
-      state.isLoading=false;
+    builder.addCase(getWorkState.rejected, (state) => {
+      state.isLoading = false;
     });
   }
 });
 
-
-export const { setIsLogin, setAccessToken, setWorkState,setIsConnected, setAddress } = authSlice.actions;
+export const {
+  setIsLogin,
+  setAccessToken,
+  setWorkState,
+  setIsConnected,
+  setAddress
+} = authSlice.actions;
 export default authSlice;

@@ -12,8 +12,8 @@ export function StoreProviders({ children }: { children: React.ReactNode }) {
     checkInstallationImmediately: false,
     dappMetadata: {
       name: "Next-Metamask-Boilerplate",
-      url: host,
-    },
+      url: host
+    }
   };
 
   return (
