@@ -4,19 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../../public/images/Logo.png";
 import { jwtDecode } from "jwt-decode";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch} from "react-redux";
 import { useRouter } from "next/navigation";
+import { setAccessToken, setAddress, setIsConnected, setIsLogin, setWorkState } from "@/lib/features/auth/authSlice";
 
 const Navbar: FC = () => {
   const [name, setName] = useState<string>("");
   const [role, setRole] = useState<Array<any>>([]);
   const [color, setColor] = useState<string>("");
   const Auth: any = useSelector<any>((state) => state.authReducer);
+  const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
     if (!Auth.isLogin){
-      router.replace('/login')
+      handleLogout()
     }
     if (Auth.accessToken) {
       const claim: any = jwtDecode(Auth.accessToken);
@@ -40,6 +42,14 @@ const Navbar: FC = () => {
     }
   }, []);
 
+  const handleLogout = () => {
+    dispatch(setIsConnected(false));
+      dispatch(setAddress(""));
+      dispatch(setAccessToken(""));
+      dispatch(setWorkState(""));
+      router.replace('/login')
+  }
+
   return (
     <div className={`w-1/4 min-w-[300px] h-full ${color}`}>
       <div className="flex flex-col">
@@ -52,7 +62,7 @@ const Navbar: FC = () => {
             <Link href="./infomation">
               <h3 className="px-4">내 정보</h3>
             </Link>
-            <h3 className="border-l-2 px-4 border-black">로그아웃</h3>
+            <h3 className="border-l-2 px-4 border-black cursor-pointer" onClick={handleLogout}>로그아웃</h3>
           </div>
           <NavbarBtns role={role} />
         </div>

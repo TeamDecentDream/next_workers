@@ -21,7 +21,7 @@ const Weather: FC = () => {
         <div className="pl-12">
           <h1 className="font-bold w-full text-3xl ">일기예보</h1>
 
-          <div className="flex justify-between p-8">
+          <div className="flex justify-between px-8 py-4">
             <div className="w-1/2  mt-[36px] flex items-center justify-center">
               <Image src={sun} alt="goals" width={256} height={256} />
             </div>

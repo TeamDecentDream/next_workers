@@ -86,12 +86,7 @@ export default function Login() {
           
         </button> */}
         <KakaoOauthComponents></KakaoOauthComponents>
-        <ConnectWalletButton
-          isConnectd={isConnectd}
-          setIsConnectd={setIsConnectd}
-          address={address}
-          setAddress={setAddress}
-        />
+        <ConnectWalletButton/>
       </div>
       <Footer />
     </div>

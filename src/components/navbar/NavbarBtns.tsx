@@ -20,7 +20,7 @@ const NavbarBtns: FC<NavbarBtnsProps> = ({role}) => {
         role[0].Role === "ROLE_PRIME"
         ) ?<>
       <Link href="./notice">공지사항</Link>
-      <Link href="./todo">할 일 관리</Link>
+      {/* <Link href="./todo">할 일 관리</Link> */}
       <Link href="./weather">일기예보</Link>
       <Link href="./significant">{(role[0].Role === "ROLE_ADMIN" || role[0].Role === "ROLE_PRIME") ? "특이사항 보고/알림" : "특이사항 보고"}</Link>
       </> :<></>}
