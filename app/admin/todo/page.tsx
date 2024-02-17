@@ -24,7 +24,7 @@ const Todo: NextPage = () => {
           <div className="bg-gray-200 w-1/2 h-full">
             <TodoCalendar />
           </div>
-          <TodoList/>
+          
         </div>
         <Footer />
       </main>

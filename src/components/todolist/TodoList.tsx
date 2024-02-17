@@ -33,10 +33,8 @@ const TodoList : FC = () => {
       };
 
     return(
-        
-            
-        
-        <div className="bg-blue-200 h-full pt-8">
+       
+        <div className="bg-blue-200 h-full">
           <div>
           <div className="flex items-center justify-center mb-4">
           <input
@@ -46,7 +44,7 @@ const TodoList : FC = () => {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
             />
-          <button className="ml-8 w-16 h-16 rounded-2xl bg-darkGreen" onClick={addTodo}>ADD</button>
+          <button className="ml-8 w-12 h-12 rounded-2xl bg-darkGreen" onClick={addTodo}> + </button>
           </div>
           {todos.map((todo) => (
         <div className="flex items-center mb-4">
