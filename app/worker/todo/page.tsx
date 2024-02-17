@@ -9,23 +9,21 @@ import { FC } from "react";
 const Todo: FC = () => {
   return (
     <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
-        
-        <Navbar />
-        
-        <main className="min-w-[1140px] w-full h-full flex flex-col">
-        <div className="font-bold w-64 text-3xl mx-6 mt-6">할 일 관리</div>
-          <div className="ml-[90%]">
-            <OnDate />
-          </div>
-          <div className="bg-gray-200 w-full h-full p-12">
-            <div className="bg-gray-400 w-full h-full ">
-              <TodoCalendar />
-            </div>
-          </div>
-          <Footer />
-        </main>
-      </div>
+      <Navbar />
 
+      <main className="min-w-[1140px] w-full h-full flex flex-col">
+        <div className="flex  justify-between  mx-12 mt-12">
+          <div className="font-bold w-64 text-3xl">할 일 관리</div>
+          <OnDate />
+        </div>
+        <div className="w-full h-full px-12 pt-16">
+          <div className="w-full h-[600px] ">
+            <TodoCalendar />
+          </div>
+        </div>
+        <Footer />
+      </main>
+    </div>
   );
 };
 
