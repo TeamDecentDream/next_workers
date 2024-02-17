@@ -4,9 +4,13 @@ import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Navbar from "@/src/components/navbar/Navbar";
 import OnWork from "@/src/components/onwork/OnWork";
+import { jwtDecode } from "jwt-decode";
 import { FC } from "react";
+import { useSelector } from "react-redux";
 
 const Infomation: FC = () => {
+  const Auth:any = useSelector<any>(state => state.authReducer)
+
   return (
     <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
       <Navbar />
@@ -17,18 +21,21 @@ const Infomation: FC = () => {
         </div>
         <div className="font-bold text-3xl mx-12">내 정보</div>
         <div>
-          <div className="min-h-[640px] p-4 my-8 px-40">
-            <ul className="grid grid-cols-2 text-center w-32">
-              <li className="w-32 mt-1">이름</li>
-              <span className="ml-16 text-2xl">:</span>
-              <li className="w-32 mt-1">E-Mail</li>
-              <span className="ml-16 text-2xl">:</span>
-              <li className="w-32 mt-1">지갑주소</li>
-              <span className="ml-16 text-2xl">:</span>
-              <li className="w-32 mt-1">근무 내역</li>
-              <span className="ml-16 text-2xl">:</span>
+          <div className="min-h-[640px] w-full px-16 py-8">
+            
+            <ul className="">
+              <li className="w-full mt-1 flex">
+              <span className="ml-16 text-2xl w-full">이름  :  {Auth.accessToken && jwtDecode(Auth.accessToken)?.name}</span>
+              </li>
+              <li className="w-full mt-1">
+              <span className="ml-16 text-2xl w-full">E-Mail : {Auth.accessToken && jwtDecode(Auth.accessToken)?.email}</span>
+              </li>
+              <li className="w-full mt-1">
+              <span className="ml-16 text-2xl w-full">지갑주소 : {Auth.address}</span>
+              </li>
             </ul>
-            <div className="mt-20 mx-auto w-[1140px]">
+
+            <div className="mt-4 mx-auto w-5/6">
               <div className=" px-4 mb-4 text-lg font-semibold">
                 월급 지급 내역
               </div>
@@ -47,8 +54,30 @@ const Infomation: FC = () => {
                     트렌잭션 주소
                   </div>
                 </div>
-                <div className=" min-h-[320px]"></div>
+                <div className=" min-h-48"></div>
               </div>
+            </div>
+
+            <div className="mt-4 mx-auto w-5/6">
+              <div className=" px-4 mb-4 text-lg font-semibold">
+                출/퇴근 내역
+              </div>
+              <div className=" border-[1px]  border-black">
+                <div className="flex justify-center">
+                  <div className="bg-lightGreen w-1/3 py-2 text-center">
+                    년/월
+                  </div>
+                  <div className="bg-lightGreen w-1/3 py-2 text-center">
+                    출근시각
+                  </div>
+                  <div className="bg-lightGreen w-1/3 py-2 text-center">
+                    퇴근시각
+                  </div>
+                </div>
+                <div className=" min-h-48"></div>
+              </div>
+
+              
             </div>
           </div>
         </div>
