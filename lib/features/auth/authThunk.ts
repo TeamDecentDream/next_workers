@@ -44,6 +44,7 @@ interface SnsLoginRequest {
   export const getWorkState = createAsyncThunk<Response,WorkStateRequest>(
     "authSlice/getWorkState",
     async ({ token }) => {
+      console.log(token)
     const resp: AxiosResponse<any> = await axios.get(
       BACK_SERVER_URL + '/attendance' ,
       {headers : {Authorization:token}}

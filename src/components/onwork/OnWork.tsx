@@ -23,6 +23,7 @@ const OnWork: FC = () => {
     } else {
       axios.post(GinServerBaseURL+'/attendance/enter',{},{headers:{Authorization:auth.accessToken}})
       .then((resp)=>{
+        console.log(resp.data.state)
         dispatch(setWorkState(resp.data.state))
       })
       .catch((err)=>{console.log(err)})

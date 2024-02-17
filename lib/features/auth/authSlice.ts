@@ -63,6 +63,7 @@ const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getWorkState.fulfilled, (state, action) => {
+      console.log(action)
       if (action.payload.data.state) {
         console.log(action.payload.data.state);
         state.workState = action.payload.data.state;

@@ -14,7 +14,7 @@ const TransactionDetail: FC<TransactionDetailProps> = ({ list }) => {
 
   const handleDelete = (tId: any) => {
     axios
-      .delete(GinServerBaseURL + `/transaction&id=${tId}`, {
+      .delete(GinServerBaseURL + `/transaction?id=${tId}`, {
         headers: { Authorization: Auth.accessToken },
       })
       .then((resp) => {

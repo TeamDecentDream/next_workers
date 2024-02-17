@@ -54,6 +54,14 @@ const Notice: FC = () => {
     .catch((error)=>console.log(error))
   }, []);
 
+  const handleDeleteNotice = (id:number) => {
+    axios.delete(GinServerBaseURL+`/notification?id=${id}`,{headers:{Authorization:Auth.accessToken}})
+    .then((resp)=>{
+      alert('삭제 성공')
+    })
+    .catch((error)=>console.log(error))
+  }
+
 
   return (
     
@@ -62,20 +70,30 @@ const Notice: FC = () => {
         <Navbar />
         
         <main className="min-w-[1140px] w-full h-full flex flex-col">
-          <div className="font-bold w-32 text-3xl mx-6 mt-6">공지사항</div>
+          <div className="fw-full mx-6 mt-6 flex items-center">
+            <p className="text-3xl font-bold ">공지사항</p>
+          {role[0] && role[0].Role === "ROLE_ADMIN"?
+              <Link className="ml-4" href="./notice/write"><button className="mx-2 px-2 rounded-md hover:text-cyan-500 border-[1px] border-solid border-black hover:border-cyan-500">공지사항 작성하기</button></Link>
+              :<></>}
+          </div>
+          
           <div className="ml-[90%]">
             <OnDate />
           </div>
           <div>
+            
             <div className="ml-16 mb-4 flex">
               <p className="text-lg font-semibold">{detail.title}</p>
-              {role[0] && role[0].Role === "ROLE_ADMIN"?
-              <Link href="./notice/write"><button className="mx-2 hover:text-cyan-500">공지사항 작성하기</button></Link>
-              :<></>}
+              
             </div>
-            <div className="flex ml-24 gap-4 mb-6">
+            <div className="flex ml-24 gap-4 mb-6 items-center">
               <div>날짜 : {detail.update_date?formatDate(detail.update_date):""}</div>
               <div>작성자 : {detail.author_id&&detail.author_id}</div>
+              { detail.author_id===jwtDecode(Auth.accessToken).name || (role[0] && role[0].Role === "ROLE_ADMIN") ? 
+              <button className="border-solid border-red-500 border-[1px] px-1 rounded-md text-red-500 hover:text-white hover:bg-red-500"
+              onClick={()=>{
+                handleDeleteNotice(detail.id)
+              }}>삭제</button>:<></>}
             </div>
             <div className="mx-32 h-96 overflow-y-auto bg-slate-200 p-4 rounded-[20px]">{detail.contents}</div>
           </div>
