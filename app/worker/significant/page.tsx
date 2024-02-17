@@ -53,6 +53,12 @@ const decreaseSignificance = () => {
   .catch(err => {console.log(err)})
 }
 
+const handleDelete = (id:number) => {
+  axios.delete(GinServerBaseURL+`/significant?id=${id}`,{headers:{Authorization:Auth.accessToken}})
+  .then((resp)=>console.log(resp))
+  .catch((err)=> console.log(err))
+}
+
 const increaseSignificance = () => {
   axios.put(GinServerBaseURL+'/significant',{
     id:detail.id,
@@ -113,6 +119,11 @@ useEffect(() => {
               onClick={decreaseSignificance}>내리기</button>
               </>
               :<></>}
+              { detail.author_id===jwtDecode(Auth.accessToken).name || (role[0] && role[0].Role === "ROLE_ADMIN") ? 
+              <button className="ml-2 border-solid border-red-500 border-[1px] p-1 rounded-md text-red-500 hover:text-white hover:bg-red-500"
+              onClick={()=>{
+                handleDelete(detail.id)
+              }}>삭제</button>:<></>}
             </div>
             <div className="flex ml-24 gap-4 mb-6">
               <div>날짜 : {detail.update_date?formatDate(detail.update_date):""}</div>
