@@ -3,6 +3,7 @@
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Navbar from "@/src/components/navbar/Navbar";
+import TodoCalendar from "@/src/components/reactcalendar/TodoCalendar";
 import { FC } from "react";
 
 const Todo: FC = () => {
@@ -17,7 +18,9 @@ const Todo: FC = () => {
             <OnDate />
           </div>
           <div className="bg-gray-200 w-full h-full p-12">
-            <div className="bg-gray-400 w-full h-full ">달력</div>
+            <div className="bg-gray-400 w-full h-full ">
+              <TodoCalendar />
+            </div>
           </div>
           <Footer />
         </main>
