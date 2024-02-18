@@ -9,7 +9,6 @@ import goals from "/public/images/goals.png";
 import sand from "/public/images/sand.png";
 import OnWork from "@/src/components/onwork/OnWork";
 
-
 const Main: FC = () => {
   return (
     <div className="min-w-[1440px] w-full min-h-[800px] flex h-screen">
