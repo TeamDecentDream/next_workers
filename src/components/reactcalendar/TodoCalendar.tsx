@@ -94,9 +94,12 @@ const TodoCalendar: FC = () => {
       </div>
       <div className="w-1/2 pt-4 h-auto overflow-y-scroll">
         {todos.map((todo) => (
-          <div key={todo.id} className="flex items-center mb-4 justify-center">
+          <div
+            key={todo.id}
+            className="flex items-center mb-4 justify-center min-w-1/2"
+          >
             <ul className="w-3/4 h-12  ml-4 flex items-center ">
-              <li className="text-darkGreen font-semibold text-xl mr-8 min-w-32">
+              <li className="text-darkGreen font-semibold text-xl mr-4 min-w-32">
                 {todo.date}
               </li>
               <li className="border-b-[1px] border-gray-700 text-lg overflow-hidden max-w-[330px]">

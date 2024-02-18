@@ -3,6 +3,7 @@
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Navbar from "@/src/components/navbar/Navbar";
+import OnWork from "@/src/components/onwork/OnWork";
 import TodoCalendar from "@/src/components/reactcalendar/TodoCalendar";
 import { FC } from "react";
 
@@ -14,7 +15,10 @@ const Todo: FC = () => {
       <main className="min-w-[1140px] w-full h-full flex flex-col">
         <div className="flex  justify-between  mx-12 mt-12">
           <div className="font-bold w-64 text-3xl">할 일 관리</div>
-          <OnDate />
+          <div className="flex">
+            <OnDate />
+            <OnWork />
+          </div>
         </div>
         <div className="w-full h-full px-12 pt-16">
           <div className="w-full h-[600px] ">

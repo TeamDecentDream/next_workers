@@ -7,6 +7,7 @@ import Image from "next/image";
 import { FC } from "react";
 import sun from "/public/images/sun.png";
 import OnWork from "@/src/components/onwork/OnWork";
+import WeatherInfo from "@/src/components/weatherinfo/WeatherInfo";
 
 const Weather: FC = () => {
   return (
