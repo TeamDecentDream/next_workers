@@ -7,7 +7,6 @@ import Image from "next/image";
 import { FC } from "react";
 import sun from "/public/images/sun.png";
 import OnWork from "@/src/components/onwork/OnWork";
-import WeatherInfo from "@/src/components/weatherinfo/WeatherInfo";
 
 const Weather: FC = () => {
   return (
@@ -40,7 +39,7 @@ const Weather: FC = () => {
                 </ul>
               </div>
               <div className=" flex mt-8">
-                <div className="w-1/2 text-center my-auto text-4xl font-bold text-green-600">
+                <div className="w-1/2 text-center my-auto text-4xl font-bold text-darkGreen">
                   ※기상 주의보※ <br /> 없음
                 </div>
                 <ul>
