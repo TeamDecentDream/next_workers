@@ -53,7 +53,16 @@ const TransactionList: FC = () => {
       )
       .then((resp) => {
         alert("등록 성공");
-        getTransactionCount()
+        loadTransaction();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+  const loadTransaction= ()=> {
+    getTransactionCount()
           .then((resp) => {
             console.log(resp);
             setMaxPage(Math.floor((resp.data.count - 1) / 5) + 1);
@@ -70,32 +79,7 @@ const TransactionList: FC = () => {
           .catch((err) => {
             console.log(err);
           });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleDelete = (tId: any) => {
-    axios
-      .delete(GinServerBaseURL + `/transaction&id=${tId}`, {
-        headers: { Authorization: Auth.accessToken },
-      })
-      .then((resp) => {
-        alert("삭제 성공");
-        getTransaction(page)
-        .then((resp) => {
-          console.log(resp.data.transactions);
-          setList(resp.data.transactions);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  }
 
   const handleTitle = (e: ChangeEvent<any>) => {
     setTransaction((prevState) => ({
@@ -267,7 +251,7 @@ const TransactionList: FC = () => {
               </tr>
             </thead>
             <tbody>
-              <TransactionDetail list={list}></TransactionDetail>
+              <TransactionDetail list={list} loadTransaction={loadTransaction}></TransactionDetail>
             </tbody>
           </table>
           <Pagination

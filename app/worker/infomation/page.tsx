@@ -41,13 +41,16 @@ const Infomation: FC = () => {
             
             <ul className="">
               <li className="w-full mt-1 flex">
-              <span className="ml-16 text-2xl w-full">이름  :  {Auth.accessToken && jwtDecode(Auth.accessToken)?.name}</span>
+              <span className="ml-16 w-full">이름  :  {Auth.accessToken && jwtDecode(Auth.accessToken)?.name}</span>
               </li>
               <li className="w-full mt-1">
-              <span className="ml-16 text-2xl w-full">E-Mail : {Auth.accessToken && jwtDecode(Auth.accessToken)?.email}</span>
+              <span className="ml-16 w-full">E-Mail : {Auth.accessToken && jwtDecode(Auth.accessToken)?.email}</span>
               </li>
               <li className="w-full mt-1">
-              <span className="ml-16 text-2xl w-full">지갑주소 : {Auth.address}</span>
+              <span className="ml-16 w-full">권한 : {Auth.accessToken && jwtDecode(Auth.accessToken).authorities[0].Role}</span>
+              </li>
+              <li className="w-full mt-1">
+              <span className="ml-16 w-full">지갑주소 : {Auth.address}</span>
               </li>
             </ul>
 

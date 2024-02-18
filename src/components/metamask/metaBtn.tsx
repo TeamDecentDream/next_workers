@@ -27,16 +27,16 @@ export const ConnectWalletButton: FC = () => {
   }, [connected]);
 
   useEffect(() => { 
-    if (Auth.accessToken && account) {
-      axios
-      .post(GinServerBaseURL + `/member/wallet`, {addr:account}, {headers: { Authorization: Auth.accessToken}})
-      .then((resp) => {
-        router.replace('/worker/main')
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
-    }
+    // if (Auth.accessToken && account) {
+    //   axios
+    //   .post(GinServerBaseURL + `/member/wallet`, {addr:account}, {headers: { Authorization: Auth.accessToken}})
+    //   .then((resp) => {
+    //     router.replace('/worker/main')
+    //   })
+    //   .catch((err)=>{
+    //     console.log(err);
+    //   })
+    // }
     if(account) {
       dispatch(setAddress(account));
     } else {

@@ -23,10 +23,18 @@ export default function Login() {
 
   useEffect(() => {
     if (sessionStorage.getItem("kakao")) {
+      const address = sessionStorage.getItem("address")
+      if (!address || address.length<10) {
+        sessionStorage.removeItem("address");  
+        alert('지갑연동을 먼저 해주세요.')
+        return
+      }
       const searchParams = new URLSearchParams(window.location.search);
       const credentailcode: any = searchParams.get("code");
       sessionStorage.removeItem("kakao");
-      dispatch(snsLogin({ code: credentailcode , address : Auth.address}));
+      sessionStorage.removeItem("address");
+      console.log(address)
+      dispatch(snsLogin({ code: credentailcode , address : address}));
       // axios
       //   .post(GinServerBaseURL + `/member/login`, {
       //     provider: "kakao",
@@ -42,11 +50,11 @@ export default function Login() {
 
       //   });
     }
-  }, []);
+  }, [Auth.address]);
 
   useEffect(() => {
     console.log(Auth);
-    if (Auth.accessToken && address) router.replace("/worker/main");
+    if (Auth.accessToken) router.replace("/worker/main");
   }, [Auth.accessToken]);
 
   return (
