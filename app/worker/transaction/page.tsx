@@ -83,6 +83,14 @@ const TransactionList: FC = () => {
       })
       .then((resp) => {
         alert("삭제 성공");
+        getTransaction(page)
+        .then((resp) => {
+          console.log(resp.data.transactions);
+          setList(resp.data.transactions);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -161,19 +169,19 @@ const TransactionList: FC = () => {
         <div className="mx-32 mt-4 mb-2 overflow-y-auto h-[760px] p-4 rounded-[20px] relative">
           <div className="flex w-full">
             <form className="w-5/6">
-              <fieldset className="border-gray-500 border-solid border-[1px]">
+              <fieldset className="border-gray-500 border-solid border-[1px] pl-4">
                 <legend>거래 내역 입력</legend>
-                거래내용 :{" "}
+                <span className="w-1/6 mr-2">거래내용 : </span>
                 <input
-                  className="w-5/6 my-1 bg-slate-50"
+                  className="w-5/6 my-1 bg-slate-200 "
                   type="text"
                   value={transaction.title}
                   onChange={handleTitle}
                 />
                 <br />
-                판매/구매 :{" "}
+                <span className="w-1/6 mr-2">판매/구매 : </span>
                 <input
-                  className="my-1 bg-slate-50"
+                  className="my-1 bg-slate-200 "
                   type="radio"
                   name="ages"
                   checked={transaction.sellBuy === 0}
@@ -192,17 +200,17 @@ const TransactionList: FC = () => {
                 />{" "}
                 판매
                 <br />
-                거래처 :{" "}
+                <span className="w-1/6 mr-2">거래내용 : </span>
                 <input
-                  className="w-5/6 my-1 bg-slate-50"
+                  className="w-5/6 my-1 bg-slate-200 "
                   type="text"
                   value={transaction.client}
                   onChange={handleClient}
                 />
                 <br />
-                거래금액 :{" "}
+                <span className="w-1/6 mr-2">거래금액 : </span>
                 <input
-                  className="w-5/6 my-1 bg-slate-50"
+                  className="w-5/6 my-1 bg-slate-200 "
                   type="number"
                   value={transaction.amount}
                   onChange={handleAmount}

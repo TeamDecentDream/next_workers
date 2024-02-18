@@ -55,7 +55,23 @@ const decreaseSignificance = () => {
 
 const handleDelete = (id:number) => {
   axios.delete(GinServerBaseURL+`/significant?id=${id}`,{headers:{Authorization:Auth.accessToken}})
-  .then((resp)=>console.log(resp))
+  .then((resp)=>{
+    console.log(resp)
+    alert('특이사항 삭제 성공')
+    axios.get(GinServerBaseURL+'/significant/count',{headers:{Authorization:Auth.accessToken}})
+  .then((resp)=>{
+    setMaxPage(Math.floor((resp.data.count-1)/5)+1)
+  }).catch((error)=>{
+    console.log(error)
+  })
+
+  axios.get(GinServerBaseURL+`/significant?page=${page}`,{headers:{Authorization:Auth.accessToken}})
+  .then((resp)=>{
+    setList(resp.data)
+    setDetail(resp.data[0])
+  })
+  .catch((error)=>console.log(error))
+  })
   .catch((err)=> console.log(err))
 }
 

@@ -1,15 +1,31 @@
 "use client";
 
+import Attendance from "@/src/components/attendance/attendance";
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Navbar from "@/src/components/navbar/Navbar";
 import OnWork from "@/src/components/onwork/OnWork";
+import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
+const GinServerBaseURL="http://localhost:8080"
 
 const Infomation: FC = () => {
   const Auth:any = useSelector<any>(state => state.authReducer)
+  const [attendanceList, setAttendanceList] = useState([]);
+
+  useEffect(()=>{
+    axios.get(GinServerBaseURL+`/attendance/timelogs`,{headers: {Authorization:Auth.accessToken}})
+    .then((resp)=>{
+      console.log(resp)
+      setAttendanceList(resp.data.timeLogs)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  },[])
 
   return (
     <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
@@ -64,20 +80,17 @@ const Infomation: FC = () => {
               </div>
               <div className=" border-[1px]  border-black">
                 <div className="flex justify-center">
-                  <div className="bg-lightGreen w-1/3 py-2 text-center">
-                    년/월
-                  </div>
-                  <div className="bg-lightGreen w-1/3 py-2 text-center">
+                  <div className="bg-lightGreen w-1/2 py-2 text-center">
                     출근시각
                   </div>
-                  <div className="bg-lightGreen w-1/3 py-2 text-center">
+                  <div className="bg-lightGreen w-1/2 py-2 text-center">
                     퇴근시각
                   </div>
                 </div>
-                <div className=" min-h-48"></div>
+                <div className=" min-h-48">
+                  <Attendance list={attendanceList}></Attendance>
+                </div>
               </div>
-
-              
             </div>
           </div>
         </div>
