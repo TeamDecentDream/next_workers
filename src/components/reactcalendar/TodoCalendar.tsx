@@ -10,6 +10,7 @@ interface Todo {
   id: number;
   text: string;
   date: string;
+  done: boolean;
 }
 
 const TodoCalendar: FC = () => {
@@ -42,7 +43,7 @@ const TodoCalendar: FC = () => {
         : new Date().toISOString().slice(0, 10);
       setTodos([
         ...todos,
-        { text: inputText, id: Date.now(), date: currentDate }
+        { text: inputText, id: Date.now(), date: currentDate, done: false }
       ]);
       setInputText("");
     }
@@ -65,6 +66,14 @@ const TodoCalendar: FC = () => {
       );
     }
   }; //Todo
+
+  const toggleDone = (id: number) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo
+      )
+    );
+  };
 
   return (
     <div className="flex h-full">
@@ -99,13 +108,27 @@ const TodoCalendar: FC = () => {
             className="flex items-center mb-4 justify-center min-w-1/2"
           >
             <ul className="w-3/4 h-12  ml-4 flex items-center ">
-              <li className="text-darkGreen font-semibold text-xl mr-4 min-w-32">
+              <li
+                className={`text-darkGreen font-semibold text-xl mr-4 min-w-32 ${
+                  todo.done ? "line-through" : ""
+                }`}
+              >
                 {todo.date}
               </li>
-              <li className="border-b-[1px] border-gray-700 text-lg overflow-hidden max-w-[330px]">
+              <li
+                className={`text-lg overflow-hidden min-w-[180px] max-w-[330px] ${
+                  todo.done ? "line-through" : ""
+                }`}
+              >
                 {todo.text}
               </li>
             </ul>
+            <button
+              className="min-w-12 min-h-12 bg-green-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
+              onClick={() => toggleDone(todo.id)} // toggleDone 함수 연결
+            >
+              Done
+            </button>
             <button
               className="min-w-12 min-h-12 bg-blue-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
               onClick={() => editTodo(todo.id)}

@@ -62,7 +62,7 @@ const Main: FC = () => {
             </div>
 
             <div className="w-1/2 h-[264px] mt-[36px] flex items-center">
-              <div className="mr-8">
+              <div className="px-8">
                 <Image src={sand} alt="sand" width={192} height={192} />
               </div>
               <ul>
