@@ -21,8 +21,7 @@ const TodoCalendar: FC = () => {
   const initTimeRange = () => {
     const currentDate = new Date();
       const year = currentDate.getFullYear();
-      const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1 해줌
-      
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
       return `${year}-${month}`;
   }
 
@@ -136,15 +135,13 @@ const TodoCalendar: FC = () => {
     );
   };
   function parseDateTimeString(dateTimeString:any) {
-    // 주어진 문자열을 Date 객체로 파싱합니다.
     const date = new Date(dateTimeString);
   
-    // Asia/Seoul 시간대로 변환합니다.
     const offset = date.getTimezoneOffset();
-    const seoulOffset = +9 * 60; // Asia/Seoul 시간대는 UTC+9 입니다.
+    const seoulOffset = +9 * 60; 
     const seoulTime = new Date(date.getTime() + (seoulOffset + offset) * 60 * 1000);
   
-    // 필요한 형식으로 날짜와 시간을 반환합니다.
+
     const year = seoulTime.getFullYear();
     const month = String(seoulTime.getMonth() + 1).padStart(2, "0");
     const day = String(seoulTime.getDate()).padStart(2, "0");
@@ -152,7 +149,6 @@ const TodoCalendar: FC = () => {
     const minutes = String(seoulTime.getMinutes()).padStart(2, "0");
     const seconds = String(seoulTime.getSeconds()).padStart(2, "0");
   
-    // 예시 형식: "2024-02-19 14:24:10"
     const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   
     return formattedDateTime;
