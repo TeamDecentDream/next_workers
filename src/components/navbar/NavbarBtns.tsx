@@ -39,7 +39,7 @@ const NavbarBtns: FC<NavbarBtnsProps> = ({ role }) => {
       {role[0] && role[0].Role === "ROLE_ADMIN" ? (
         <>
           <Link href="/worker/transaction">거래내역</Link>
-          <Link href="/worker/situation">농가상황</Link>
+          <Link href="/worker/farmInfo">전체농가상황</Link>
         </>
       ) : (
         <></>
