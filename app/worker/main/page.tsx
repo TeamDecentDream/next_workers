@@ -8,6 +8,7 @@ import { FC } from "react";
 import goals from "/public/images/goals.png";
 import sand from "/public/images/sand.png";
 import OnWork from "@/src/components/onwork/OnWork";
+import Link from "next/link";
 
 const Main: FC = () => {
   return (
@@ -32,9 +33,11 @@ const Main: FC = () => {
                 </ul>
               </div>
               <div className="text-right pr-8">
-                <a className="cursor-pointer hover:text-blue-500">
+                <Link href="/worker/notice"className="cursor-pointer hover:text-blue-500">
+                
                   게시글 더보기 {">"}
-                </a>
+                
+                </Link>
               </div>
             </div>
 

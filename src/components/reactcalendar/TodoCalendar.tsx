@@ -18,10 +18,17 @@ interface Todo {
 }
 
 const TodoCalendar: FC = () => {
+  const initTimeRange = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    return `${year}-${month}`;
+  };
+
   const [value, onChange] = useState<Value>(new Date());
   const [today, setToday] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [timeRange, setTimeRange] = useState<any>();
+  const [timeRange, setTimeRange] = useState<any>(initTimeRange());
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputText, setInputText] = useState<string>("");
@@ -30,6 +37,7 @@ const TodoCalendar: FC = () => {
   const Auth: any = useSelector<any>((state) => state.authReducer);
 
   function formatDateToYearMonth(isoDateString: any) {
+    console.log(isoDateString);
     const date = new Date(isoDateString);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1 해줌
@@ -43,15 +51,16 @@ const TodoCalendar: FC = () => {
 
   useEffect(() => {
     loadData();
-  }, [todos]);
+  }, [timeRange]);
 
   const loadData = () => {
     axios
-      .get(GinServerBaseURL + `/todo?timeRange=`, {
+      .get(GinServerBaseURL + `/todo?timeRange=${timeRange}`, {
         headers: { Authorization: Auth.accessToken }
       })
       .then((resp) => {
         console.log(resp);
+        setTodos(resp.data.todos);
       })
       .catch((error) => {
         console.log(error);
@@ -61,8 +70,9 @@ const TodoCalendar: FC = () => {
   const handleDateClick = (date: Date) => {
     setSelectedDate(date);
   };
+
   const handleMonthClick = (value: any) => {
-    const _timeRange = formatDateToYearMonth(value.activeStartRange);
+    const _timeRange = formatDateToYearMonth(value.activeStartDate);
     console.log(_timeRange);
     setTimeRange(_timeRange);
   };
@@ -87,15 +97,12 @@ const TodoCalendar: FC = () => {
           { headers: { Authorization: Auth.accessToken } }
         )
         .then((resp) => {
+          loadData();
           alert("투두 생성 완료!");
         })
         .catch((error) => {
           console.log(error);
         });
-      setTodos([
-        ...todos,
-        { text: inputText, id: Date.now(), date: currentDate, done: false }
-      ]);
       setInputText("");
     }
   };
@@ -125,6 +132,26 @@ const TodoCalendar: FC = () => {
       )
     );
   };
+  function parseDateTimeString(dateTimeString: any) {
+    const date = new Date(dateTimeString);
+
+    const offset = date.getTimezoneOffset();
+    const seoulOffset = +9 * 60;
+    const seoulTime = new Date(
+      date.getTime() + (seoulOffset + offset) * 60 * 1000
+    );
+
+    const year = seoulTime.getFullYear();
+    const month = String(seoulTime.getMonth() + 1).padStart(2, "0");
+    const day = String(seoulTime.getDate()).padStart(2, "0");
+    const hours = String(seoulTime.getHours()).padStart(2, "0");
+    const minutes = String(seoulTime.getMinutes()).padStart(2, "0");
+    const seconds = String(seoulTime.getSeconds()).padStart(2, "0");
+
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+    return formattedDateTime;
+  }
 
   return (
     <div className="flex h-full">
@@ -154,47 +181,58 @@ const TodoCalendar: FC = () => {
         </div>
       </div>
       <div className="w-1/2 pt-4 h-auto overflow-y-scroll">
-        {todos.map((todo) => (
-          <div
-            key={todo.id}
-            className="flex items-center mb-4 justify-center min-w-1/2"
-          >
-            <ul className="w-3/4 h-12  ml-4 flex items-center ">
-              <li
-                className={`text-darkGreen font-semibold text-xl mr-4 min-w-32 ${
-                  todo.done ? "line-through" : ""
-                }`}
+        {todos &&
+          todos.map((todo) => (
+            <div
+              key={todo.id}
+              className="flex items-center mb-4 justify-center min-w-1/2"
+            >
+              <ul className="w-3/4 h-12  ml-4 flex items-center ">
+                <li
+                  className={` font-semibold text-xl mr-4 min-w-32 ${
+                    todo.state === 1
+                      ? "line-through text-gray-600"
+                      : "text-darkGreen"
+                  }`}
+                >
+                  {parseDateTimeString(todo.regDate)}
+                </li>
+                <li
+                  className={`text-lg overflow-hidden min-w-[180px] max-w-[330px] ${
+                    todo.state === 1 ? "line-through" : ""
+                  }`}
+                >
+                  {todo.contents}
+                </li>
+              </ul>
+              {todo.state === 0 ? (
+                <button
+                  className="min-w-12 min-h-12 bg-green-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
+                  onClick={() => toggleDone(todo.id)}
+                >
+                  Done
+                </button>
+              ) : (
+                <></>
+              )}
+              {todo.state === 0 ? (
+                <button
+                  className="min-w-12 min-h-12 bg-blue-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
+                  onClick={() => editTodo(todo.id)}
+                >
+                  Edit
+                </button>
+              ) : (
+                <></>
+              )}
+              <button
+                className="min-w-12 min-h-12 bg-red-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
+                onClick={() => removeTodo(todo.id)}
               >
-                {todo.date}
-              </li>
-              <li
-                className={`text-lg overflow-hidden min-w-[180px] max-w-[330px] ${
-                  todo.done ? "line-through" : ""
-                }`}
-              >
-                {todo.text}
-              </li>
-            </ul>
-            <button
-              className="min-w-12 min-h-12 bg-green-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
-              onClick={() => toggleDone(todo.id)}
-            >
-              Done
-            </button>
-            <button
-              className="min-w-12 min-h-12 bg-blue-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
-              onClick={() => editTodo(todo.id)}
-            >
-              Edit
-            </button>
-            <button
-              className="min-w-12 min-h-12 bg-red-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
-              onClick={() => removeTodo(todo.id)}
-            >
-              Del
-            </button>
-          </div>
-        ))}
+                Del
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   );
