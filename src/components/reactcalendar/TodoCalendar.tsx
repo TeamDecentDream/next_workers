@@ -29,7 +29,7 @@ const TodoCalendar: FC = () => {
 
   const Auth: any = useSelector<any>((state) => state.authReducer);
 
-  function formatDateToYearMonth(isoDateString) {
+  function formatDateToYearMonth(isoDateString: any) {
     const date = new Date(isoDateString);
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1 해줌
@@ -62,7 +62,9 @@ const TodoCalendar: FC = () => {
     setSelectedDate(date);
   };
   const handleMonthClick = (value: any) => {
-    formatDateToYearMonth(value.value);
+    const _timeRange = formatDateToYearMonth(value.activeStartRange);
+    console.log(_timeRange);
+    setTimeRange(_timeRange);
   };
 
   const addTodo = () => {
