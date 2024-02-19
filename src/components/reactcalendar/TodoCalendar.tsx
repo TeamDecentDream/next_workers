@@ -6,15 +6,11 @@ import { useSelector } from "react-redux";
 
 const GinServerBaseURL = "http://localhost:8080";
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 interface Todo {
   id: number;
-  text: string;
-  date: string;
-  done: boolean;
+  contents: string;
+  regDate: string;
+  state: number;
 }
 
 const TodoCalendar: FC = () => {
@@ -25,24 +21,15 @@ const TodoCalendar: FC = () => {
     return `${year}-${month}`;
   };
 
-  const [value, onChange] = useState<Value>(new Date());
+  const [value, onChange] = useState<any>(new Date());
   const [today, setToday] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [timeRange, setTimeRange] = useState<any>(initTimeRange());
+  const [timeRange, setTimeRange] = useState<string>(initTimeRange());
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputText, setInputText] = useState<string>("");
-  const [list, setList] = useState([]);
 
   const Auth: any = useSelector<any>((state) => state.authReducer);
-
-  function formatDateToYearMonth(isoDateString: any) {
-    console.log(isoDateString);
-    const date = new Date(isoDateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1 해줌
-    return `${year}-${month}`;
-  }
 
   useEffect(() => {
     const currentDate = new Date().toLocaleDateString();
@@ -53,6 +40,14 @@ const TodoCalendar: FC = () => {
     loadData();
   }, [timeRange]);
 
+  function formatDateToYearMonth(isoDateString: any) {
+    console.log(isoDateString);
+    const date = new Date(isoDateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1 해줌
+    return `${year}-${month}`;
+  }
+
   const loadData = () => {
     axios
       .get(GinServerBaseURL + `/todo?timeRange=${timeRange}`, {
@@ -61,6 +56,60 @@ const TodoCalendar: FC = () => {
       .then((resp) => {
         console.log(resp);
         setTodos(resp.data.todos);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const updateData = (todo: any) => {
+    const editedText = prompt("수정할 내용을 입력하세요.");
+
+    axios
+      .put(
+        GinServerBaseURL + `/todo`,
+        {
+          id: todo.id,
+          authorId: todo.authorId,
+          contents: editedText,
+          state: todo.state,
+          updateDate: todo.updateDate,
+          regDate: todo.regDate
+        },
+        {
+          headers: { Authorization: Auth.accessToken }
+        }
+      )
+      .then((resp) => {
+        loadData();
+        console.log(resp);
+        alert("수정 성공");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleDone = (todo: any) => {
+    axios
+      .put(
+        GinServerBaseURL + `/todo`,
+        {
+          id: todo.id,
+          authorId: todo.authorId,
+          contents: todo.contents,
+          state: 1,
+          updateDate: todo.updateDate,
+          regDate: todo.regDate
+        },
+        {
+          headers: { Authorization: Auth.accessToken }
+        }
+      )
+      .then((resp) => {
+        loadData();
+        console.log(resp);
+        alert("수정 성공");
       })
       .catch((error) => {
         console.log(error);
@@ -108,30 +157,19 @@ const TodoCalendar: FC = () => {
   };
 
   const removeTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    axios
+      .delete(GinServerBaseURL + `/todo?id=${id}`, {
+        headers: { Authorization: Auth.accessToken }
+      })
+      .then((resp) => {
+        loadData();
+        alert("삭제 성공");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  const editTodo = (id: number) => {
-    const editedText = prompt(
-      "수정할 내용을 입력하세요.",
-      todos.find((todo) => todo.id === id)?.text || ""
-    );
-    if (editedText !== null) {
-      setTodos(
-        todos.map((todo) =>
-          todo.id === id ? { ...todo, text: editedText } : todo
-        )
-      );
-    }
-  };
-
-  const toggleDone = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, done: !todo.done } : todo
-      )
-    );
-  };
   function parseDateTimeString(dateTimeString: any) {
     const date = new Date(dateTimeString);
 
@@ -208,7 +246,7 @@ const TodoCalendar: FC = () => {
               {todo.state === 0 ? (
                 <button
                   className="min-w-12 min-h-12 bg-green-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
-                  onClick={() => toggleDone(todo.id)}
+                  onClick={() => handleDone(todo)}
                 >
                   Done
                 </button>
@@ -218,7 +256,7 @@ const TodoCalendar: FC = () => {
               {todo.state === 0 ? (
                 <button
                   className="min-w-12 min-h-12 bg-blue-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
-                  onClick={() => editTodo(todo.id)}
+                  onClick={() => updateData(todo)}
                 >
                   Edit
                 </button>
