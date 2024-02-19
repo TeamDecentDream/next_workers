@@ -130,7 +130,7 @@ const TodoCalendar: FC = () => {
     if (inputText.trim() === "") {
       alert("내용을 입력해주세요.");
     } else {
-      const currentDate = selectedDate
+      selectedDate
         ? new Date(
             selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000
           )
@@ -148,6 +148,7 @@ const TodoCalendar: FC = () => {
         .then((resp) => {
           loadData();
           alert("투두 생성 완료!");
+          console.log(timeRange);
         })
         .catch((error) => {
           console.log(error);
@@ -185,8 +186,8 @@ const TodoCalendar: FC = () => {
     const hours = String(seoulTime.getHours()).padStart(2, "0");
     const minutes = String(seoulTime.getMinutes()).padStart(2, "0");
     const seconds = String(seoulTime.getSeconds()).padStart(2, "0");
-
-    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    /* ${hours}:${minutes}:${seconds}*/
+    const formattedDateTime = `${year}-${month}-${day}`;
 
     return formattedDateTime;
   }
