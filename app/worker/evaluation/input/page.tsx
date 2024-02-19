@@ -3,15 +3,44 @@
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Navbar from "@/src/components/navbar/Navbar";
-import { ChangeEvent, ChangeEventHandler, FC, useState } from "react";
+import axios from "axios";
+import { useRouter, useSearchParams } from 'next/navigation'
+
+import { ChangeEvent, ChangeEventHandler, FC, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+const GinServerBaseURL = 'http://localhost:8080'
 
 const Evaluation: FC = () => {
+  const Auth:any = useSelector<any>(state => state.authReducer)
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [workJournals, setWorkJournals] = useState<Array<number>>([0,0,0,0,0,0]);
   const [textValue, setTextValue] = useState<string>("");
+  const [member , setMember] = useState();
+  
+
+  useEffect(()=>{
+    const _member=searchParams.get('member')
+    if(_member){
+      const param=JSON.parse(_member)
+      console.log(param)
+      setMember(param)
+    }
+    
+  },[])
 
   const handleSubmit = () => {
     
-    // axios.post()
+    axios.post(GinServerBaseURL + `/evaluate`,{
+      workJournals,
+      id:member.memberId,
+      textValue},
+      {headers:{ Authorization:Auth.accessToken}})
+      .then((resp)=>{
+        alert('평가 저장 완료!')
+        router.push('/worker/evaluation/list')
+      })
     setWorkJournals([0,0,0,0,0,0])
     setTextValue("");
   }
@@ -39,19 +68,19 @@ const Evaluation: FC = () => {
         </div>
         <div>
           <div className="ml-16 mb-4 flex items-start flex-col">
-            <p className="text-xl font-semibold">평가 대상 : ㅁㅁㅁ님</p>
+            <p className="text-xl font-semibold">평가 대상 : {member&&member.name}님</p>
           </div>
           <div className="flex ml-24 gap-4 mb-6">
             <div>날짜</div>
             <div>작성자</div>
           </div>
-          <div className="mx-32 h-96 overflow-y-auto bg-slate-100 p-4 rounded-[20px] flex">
+          <div className="mx-32 h-96 overflow-y-auto bg-slate-100 p-4 rounded-[20px] flex mr-4">
             <div className="h-full w-1/2">
               <div className="w-full h-1/3">
                 <p className="font-semibold">
                   작업 일지를 정확하게 작성하고 일정을 지키는 데 신경 쓰고 있나?
                 </p>
-                <div className="flex justify-between p-4">
+                <div className="flex justify-between p-4 w-11/12">
                 <label>
                   <input
                     type="radio"
@@ -106,7 +135,7 @@ const Evaluation: FC = () => {
               </div>
               <div className="w-full h-1/3">
                 <p className="font-semibold">농부는 농작물을 관리하고 유지보수하는 데 꼼꼼한가?</p>
-                <div className="flex justify-between p-4">
+                <div className="flex justify-between p-4 w-11/12">
                 <label>
                   <input
                     type="radio"
@@ -162,7 +191,7 @@ const Evaluation: FC = () => {
               </div>
               <div className="w-full h-1/3">
                 <p className="font-semibold">새로운 농업 기술 및 방법을 학습하고 적용하는 데 적극적인가?</p>
-                <div className="flex justify-between p-4">
+                <div className="flex justify-between p-4 w-11/12">
                 <label>
                   <input
                     type="radio"
@@ -219,7 +248,7 @@ const Evaluation: FC = () => {
             <div className="h-full w-1/2 ">
               <div className="w-full h-1/3">
                 <p className="font-semibold">특이사항이 발생 할 때의 대처가 적절한가?</p>
-                <div className="flex justify-between p-4">
+                <div className="flex justify-between p-4 w-11/12">
                 <label>
                   <input
                     type="radio"
@@ -274,7 +303,7 @@ const Evaluation: FC = () => {
               </div>
               <div className="w-full h-1/3">
                 <p className="font-semibold">출/퇴근 시간이 정확한가?</p>
-                <div className="flex justify-between p-4">
+                <div className="flex justify-between p-4 w-11/12">
                 <label>
                   <input
                     type="radio"
@@ -329,7 +358,7 @@ const Evaluation: FC = () => {
                 </div>
               <div className="w-full h-1/3">
                 <p className="font-semibold">다른 농부와의 관계가 우호적인가?</p>
-                <div className="flex justify-between p-4">
+                <div className="flex justify-between p-4 w-11/12">
                 <label>
                   <input
                     type="radio"

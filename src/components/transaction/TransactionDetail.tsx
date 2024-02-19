@@ -4,11 +4,12 @@ import { useSelector } from "react-redux"
 
 interface TransactionDetailProps {
   list: Array<any>;
+  loadTransaction:any;
 }
 
 const GinServerBaseURL = "http://localhost:8080";
 
-const TransactionDetail: FC<TransactionDetailProps> = ({ list }) => {
+const TransactionDetail: FC<TransactionDetailProps> = ({ list,loadTransaction }) => {
     const Auth: any = useSelector<any>((state) => state.authReducer);
 
 
@@ -18,6 +19,7 @@ const TransactionDetail: FC<TransactionDetailProps> = ({ list }) => {
         headers: { Authorization: Auth.accessToken },
       })
       .then((resp) => {
+        loadTransaction();
         alert("삭제 성공");
       })
       .catch((err) => {

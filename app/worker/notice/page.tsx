@@ -58,6 +58,19 @@ const Notice: FC = () => {
     axios.delete(GinServerBaseURL+`/notification?id=${id}`,{headers:{Authorization:Auth.accessToken}})
     .then((resp)=>{
       alert('삭제 성공')
+      axios.get(GinServerBaseURL+'/notification/count',{headers:{Authorization:Auth.accessToken}})
+    .then((resp)=>{
+      setMaxPage(Math.floor((resp.data.count-1)/5)+1)
+    }).catch((error)=>{
+      console.log(error)
+    })
+
+    axios.get(GinServerBaseURL+`/notification?page=${page}`,{headers:{Authorization:Auth.accessToken}})
+    .then((resp)=>{
+      setList(resp.data)
+      setDetail(resp.data[0])
+    })
+    .catch((error)=>console.log(error))
     })
     .catch((error)=>console.log(error))
   }

@@ -10,7 +10,7 @@ const authSlice = createSlice({
     accessToken: "",
     pong: false,
     address: "",
-    isConnected: false
+    isConnected: false,
   },
   reducers: {
     // 어플안에서
@@ -28,7 +28,7 @@ const authSlice = createSlice({
     },
     setIsConnected: (state, action: PayloadAction<boolean>) => {
       state.isConnected = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     //외부랑 통신할 함수를 어떻게 처리할 것인지
@@ -47,23 +47,29 @@ const authSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(snsLogin.fulfilled, (state, action: any) => {
-      const token: string = action.payload.data.substring(
-        16,
-        action.payload.data.length - 4
-      );
-      state.accessToken = token;
-      state.isLogin = true;
+      console.log(action);
+      const trimmedData = action.payload.data.replace("{}", "");
+      const dataObj = JSON.parse(trimmedData);
+
+      if (dataObj.msg) {
+        alert(dataObj.msg);
+      } 
+      if (dataObj.accessToken) {
+        state.accessToken = dataObj.accessToken;
+        state.isLogin = true;
+      }
       state.isLoading = false;
     });
-    builder.addCase(snsLogin.rejected, (state) => {
+    builder.addCase(snsLogin.rejected, (state, action: any) => {
       state.isLoading = false;
+      console.log(action);
     });
 
     builder.addCase(getWorkState.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(getWorkState.fulfilled, (state, action) => {
-      console.log(action)
+      console.log(action);
       if (action.payload.data.state) {
         console.log(action.payload.data.state);
         state.workState = action.payload.data.state;
@@ -74,7 +80,7 @@ const authSlice = createSlice({
     builder.addCase(getWorkState.rejected, (state) => {
       state.isLoading = false;
     });
-  }
+  },
 });
 
 export const {
@@ -82,6 +88,6 @@ export const {
   setAccessToken,
   setWorkState,
   setIsConnected,
-  setAddress
+  setAddress,
 } = authSlice.actions;
 export default authSlice;

@@ -14,16 +14,13 @@ const KakaoOauthComponents:FC = () => {
   const auth:any = useSelector<any>(state => state.authReducer)
 
   const handleLogin = () => {
-    if(auth.address.length<10) {
-      console.log(auth.address)
-      alert('지갑연동을 먼저 진행 해주세요.')
-      return
-    }
+    console.log(auth)
     const client_id = `b1408601031a21452f37b4ad7e4009db`;
     const redirect_id = "http://localhost:3000/login";
     const response_type = "code";
     const KakaoURL = `https://kauth.kakao.com/oauth/authorize?response_type=${response_type}&client_id=${client_id}&redirect_uri=${redirect_id}`
     sessionStorage.setItem("kakao","kakao");
+    sessionStorage.setItem("address",auth.address)
     window.location.href = KakaoURL;
   }
 
