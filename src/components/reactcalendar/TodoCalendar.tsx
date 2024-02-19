@@ -19,21 +19,50 @@ interface Todo {
 
 const TodoCalendar: FC = () => {
   const [value, onChange] = useState<Value>(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [today, setToday] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [timeRange, setTimeRange] = useState<any>();
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputText, setInputText] = useState<string>("");
+  const [list, setList] = useState([]);
 
   const Auth: any = useSelector<any>((state) => state.authReducer);
+
+  function formatDateToYearMonth(isoDateString) {
+    const date = new Date(isoDateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1 해줌
+    return `${year}-${month}`;
+  }
 
   useEffect(() => {
     const currentDate = new Date().toLocaleDateString();
     setToday(currentDate);
   }, []);
 
+  useEffect(() => {
+    loadData();
+  }, [todos]);
+
+  const loadData = () => {
+    axios
+      .get(GinServerBaseURL + `/todo?timeRange=`, {
+        headers: { Authorization: Auth.accessToken }
+      })
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleDateClick = (date: Date) => {
     setSelectedDate(date);
+  };
+  const handleMonthClick = (value: any) => {
+    formatDateToYearMonth(value.value);
   };
 
   const addTodo = () => {
@@ -102,6 +131,7 @@ const TodoCalendar: FC = () => {
           onChange={onChange}
           value={value}
           onClickDay={handleDateClick}
+          onActiveStartDateChange={handleMonthClick}
         />
 
         <div className="flex mt-8 items-center">
