@@ -1,6 +1,10 @@
 import { FC, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "@/src/components/reactcalendar/TodoCalendar.css";
+import axios from "axios";
+import { useSelector } from "react-redux";
+
+const GinServerBaseURL = "http://localhost:8080";
 
 type ValuePiece = Date | null;
 
@@ -20,6 +24,8 @@ const TodoCalendar: FC = () => {
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputText, setInputText] = useState<string>("");
+
+  const Auth: any = useSelector<any>((state) => state.authReducer);
 
   useEffect(() => {
     const currentDate = new Date().toLocaleDateString();
@@ -41,6 +47,20 @@ const TodoCalendar: FC = () => {
             .toISOString()
             .slice(0, 10)
         : new Date().toISOString().slice(0, 10);
+      axios
+        .post(
+          GinServerBaseURL + `/todo`,
+          {
+            contents: inputText
+          },
+          { headers: { Authorization: Auth.accessToken } }
+        )
+        .then((resp) => {
+          alert("투두 생성 완료!");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       setTodos([
         ...todos,
         { text: inputText, id: Date.now(), date: currentDate, done: false }
