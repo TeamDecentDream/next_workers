@@ -15,8 +15,8 @@ interface Todo {
 
 const TodoCalendar: FC = () => {
   const [value, onChange] = useState<Value>(new Date());
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null); // Calendar
-  const [today, setToday] = useState<string>(""); // 현재 날짜를 문자열로 저장
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [today, setToday] = useState<string>("");
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputText, setInputText] = useState<string>("");
@@ -28,7 +28,7 @@ const TodoCalendar: FC = () => {
 
   const handleDateClick = (date: Date) => {
     setSelectedDate(date);
-  }; // Calendar
+  };
 
   const addTodo = () => {
     if (inputText.trim() === "") {
@@ -65,7 +65,7 @@ const TodoCalendar: FC = () => {
         )
       );
     }
-  }; //Todo
+  };
 
   const toggleDone = (id: number) => {
     setTodos(
@@ -125,7 +125,7 @@ const TodoCalendar: FC = () => {
             </ul>
             <button
               className="min-w-12 min-h-12 bg-green-400 rounded-xl ml-2 text-white font-semibold shadow-lg"
-              onClick={() => toggleDone(todo.id)} // toggleDone 함수 연결
+              onClick={() => toggleDone(todo.id)}
             >
               Done
             </button>
