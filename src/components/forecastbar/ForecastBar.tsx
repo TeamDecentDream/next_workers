@@ -8,7 +8,7 @@ const ForecastBar: FC = () => {
   return (
     <div>
       {forecastData ? (
-        <div className=" grid grid-cols-5 h-[311px] mt-4 px-32">
+        <div className=" grid grid-cols-5  mt-2 px-32 ">
           {Array.from({ length: 5 }, (_, dayIndex) => {
             const startDate = new Date();
             startDate.setDate(startDate.getDate() + dayIndex);
@@ -36,16 +36,16 @@ const ForecastBar: FC = () => {
             const iconUrl = `https://openweathermap.org/img/wn/${dailyForecasts[0]?.weather[0]?.icon}.png`;
 
             return (
-              <div key={dayIndex} className="forecast-item w-[150px] h-[350px]">
-                <div className="flex flex-col items-center w-[150px] h-[270px] bg-lightGreen rounded-3xl shadow-xl ">
+              <div key={dayIndex} className="forecast-item w-[150px] h-[200px]">
+                <div className="flex flex-col items-center w-[150px] h-[200px] bg-lightGreen rounded-3xl shadow-xl ">
                   <div className="">
                     <Image
                       src={iconUrl}
                       alt="Weather Icon"
-                      width={192}
-                      height={192}
+                      width={110}
+                      height={110}
                     />
-                    <div className="w-[150] text-center mb-4">
+                    <div className="w-[150] text-center mb-2 font-semibold">
                       {startDate.toLocaleDateString().substring(0, 12)}
                     </div>
                   </div>

@@ -28,12 +28,14 @@ const ForecastBigIcon = () => {
   let iconUrl = "";
   if (dailyForecast && dailyForecast.weather && dailyForecast.weather[0]) {
     iconUrl = `https://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}.png`;
+    return (
+      <div className="bg-gray-200 rounded-full w-[350px] h-[350px]">
+        <Image src={iconUrl} alt="Weather Icon" width={380} height={380} />
+      </div>
+    );
+  } else {
+    return <div>Loading...</div>;
   }
-  return (
-    <div className="bg-gray-200 rounded-full w-[350px] h-[350px]">
-      <Image src={iconUrl} alt="Weather Icon" width={380} height={380} />
-    </div>
-  );
 };
 
 export default ForecastBigIcon;

@@ -7,10 +7,11 @@ import { FC } from "react";
 import OnWork from "@/src/components/onwork/OnWork";
 import ForecastBar from "@/src/components/forecastbar/ForecastBar";
 import ForecastBigIcon from "@/src/components/forecastbar/ForecastBigIcon";
+import ForecastHeader from "@/src/components/forecastbar/ForecastHeader";
 
 const Weather: FC = () => {
   return (
-    <div className="min-w-[1440px] w-full min-h-[900px] flex h-screen">
+    <div className="min-w-[1440px] w-full min-h-[800px] flex h-screen">
       <Navbar />
       <main className="min-w-[1140px] w-full h-full flex flex-col">
         <div className="flex justify-end gap-8 p-4 pr-8">
@@ -26,18 +27,7 @@ const Weather: FC = () => {
               <ForecastBigIcon />
             </div>
             <div className="w-1/2  mt-[36px] items-center">
-              <div className="font-bold text-3xl px-4 text-center">
-                <div>경기도 남양주시</div>
-                <ul className="flex gap-4 text-lg font-normal mt-4 items-center justify-center">
-                  <li className="border-r-[1px] pr-4 border-black">
-                    24년 1월 24(금)
-                  </li>
-                  <li className="border-r-[1px] pr-4 border-black">
-                    최고 : 5°C
-                  </li>
-                  <li>최저 : -10°C</li>
-                </ul>
-              </div>
+              <ForecastHeader />
               <div className=" flex mt-8">
                 <div className="w-1/2 text-center my-auto text-4xl font-bold text-darkGreen">
                   ※기상 주의보※ <br /> 없음
@@ -60,8 +50,9 @@ const Weather: FC = () => {
               </div>
             </div>
           </div>
-
-          <ForecastBar />
+          <div className="my-12">
+            <ForecastBar />
+          </div>
         </div>
         <Footer />
       </main>
