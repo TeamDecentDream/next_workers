@@ -4,14 +4,57 @@ import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Navbar from "@/src/components/navbar/Navbar";
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import goals from "/public/images/goals.png";
 import sand from "/public/images/sand.png";
 import OnWork from "@/src/components/onwork/OnWork";
 import Link from "next/link";
 import ForecastBar from "@/src/components/forecastbar/ForecastBar";
+import axios from "axios";
+import { useSelector } from "react-redux";
+
+const GinServerBaseURL = "http://localhost:8080"
 
 const Main: FC = () => {
+  const [list , setList] = useState([]);
+  const [significant , setSignificant] = useState<string>("");
+  const [color , setColor] = useState<string>("");
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const Auth:any = useSelector<any>(state => state.authReducer)
+  const startDate = new Date('2024-01-22');
+  const endDate = new Date('2024-07-22');
+
+  const calculateProgress = () => {
+    const totalDuration = endDate.getTime() - startDate.getTime();
+    const passedDuration = currentDate.getTime() - startDate.getTime();
+    const progress = (passedDuration / totalDuration) * 100;
+    return progress.toFixed(1); // 소수점 첫째 자리까지 표시
+  };
+
+  useEffect(() => {
+    setCurrentDate(new Date());
+
+    axios.get(GinServerBaseURL+`/notification?page=1`,{headers:{Authorization:Auth.accessToken}})
+    .then((resp)=>{
+      setList(resp.data)
+    })
+    .catch((error)=>console.log(error))
+
+    axios.get(GinServerBaseURL+`/significant/alert`)
+    .then((resp)=>{
+      if(resp.data.significant){
+        setSignificant(resp.data)
+        setColor("red")
+      } else {
+        setColor("green")
+      }
+    })
+    .catch((err)=>{console.log(err)})
+  }, []);
+
+
+
+
   return (
     <div className="min-w-[1440px] w-full min-h-[800px] flex h-screen">
       <Navbar />
@@ -30,7 +73,9 @@ const Main: FC = () => {
               </div>
               <div className="w-full h-2/3 mx-8">
                 <ul className="list-disc">
-                  <li>1월 평가우수직원 보너스 안내</li>
+                  {list && list.map((value,index)=>(
+                    <li key={value.id}>{value.title}</li>
+                    ))}
                 </ul>
               </div>
               <div className="text-right pr-8">
@@ -43,11 +88,11 @@ const Main: FC = () => {
               </div>
             </div>
 
-            <div className="mt-10 w-0 border-x-2 border-dashed border-red-500 h-full"></div>
+            <div className={`mt-10 w-0 border-x-2 border-dashed border-${color}-500 h-full`}></div>
 
             <div className="w-1/2 h-[225px] flex justify-center items-center flex-col">
-              <h1 className="font-bold text-2xl">긴급특이사항</h1>
-              <h3 className="text-xl mt-2">A-3 전염병 발생</h3>
+              <h1 className="font-bold text-2xl">{color==="red"?"긴급특이사항":"특이사항 없음"}</h1>
+              <h3 className="text-xl mt-2">{color==="red"?significant.content:"특이사항 없음"}</h3>
             </div>
           </div>
 
@@ -59,10 +104,10 @@ const Main: FC = () => {
                   <Image src={goals} alt="goals" width={128} height={128} />
                 </div>
                 <div className="h-[90px] w-full flex-col items-center justify-center ">
-                  <div className="text-center">파종일 : 2024-01-22</div>
-                  <div className="text-center">예상 수확일 : 2024-07-22</div>
+                  <div className="text-center">파종일 : {startDate.toLocaleDateString()}</div>
+                  <div className="text-center">예상 수확일 : {endDate.toLocaleDateString()}</div>
                 </div>
-                <div className="w-[264px] text-right">1.6% 진헹</div>
+                <div className="w-[264px] text-right">{calculateProgress()}% 진행</div>
               </div>
             </div>
 
