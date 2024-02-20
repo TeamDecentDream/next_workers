@@ -1,4 +1,5 @@
 import axios from "axios";
+import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 
 const ForecastBar: FC = () => {
@@ -13,7 +14,7 @@ const ForecastBar: FC = () => {
           const apiKey = "1a99cba73f0cfedd5d8a576166871a98";
 
           const response = await axios.get(
-            `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`
+            `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&weather.icon&appid=${apiKey}`
           );
 
           setForecastData(response.data);
@@ -30,7 +31,7 @@ const ForecastBar: FC = () => {
   return (
     <div>
       {forecastData ? (
-        <div className=" grid grid-cols-5 h-[311px] px-32">
+        <div className=" grid grid-cols-5 h-[311px] mt-8 px-32">
           {Array.from({ length: 5 }, (_, dayIndex) => {
             const startDate = new Date();
             startDate.setDate(startDate.getDate() + dayIndex);
@@ -55,22 +56,26 @@ const ForecastBar: FC = () => {
               maxTemp = Math.max(maxTemp, forecast.main.temp_max);
             });
 
-            console.log("최저 온도:", minTemp);
-            console.log("최고 온도:", maxTemp);
+            const iconUrl = `https://openweathermap.org/img/wn/${dailyForecasts[0]?.weather[0]?.icon}.png`;
+
             return (
-              <div
-                key={dayIndex}
-                className="forecast-item bg-red-100 w-[150px] h-[200px]"
-              >
-                <div className="bg-red-300 날씨 카드 flex flex-col items-center w-[150px] h-[220px]">
-                  <div className=" 오늘 아이콘 카드">
-                    <div className="w-32 h-32 bg-blue-100">이미지</div>
-                    <div>{startDate.toLocaleDateString().substring(2)}</div>
+              <div key={dayIndex} className="forecast-itemw-[150px] h-[3110px]">
+                <div className="날씨 카드 flex flex-col items-center w-[150px] h-[270px] bg-lightGreen rounded-3xl shadow-xl ">
+                  <div className=" 오늘 아이콘 카드 ">
+                    <Image
+                      src={iconUrl}
+                      alt="Weather Icon"
+                      width={192}
+                      height={192}
+                    />
+                    <div className="w-[150] text-center mb-4">
+                      {startDate.toLocaleDateString().substring(0, 12)}
+                    </div>
                   </div>
                   {dailyForecasts ? (
                     <div className="오늘 최저, 최저기온">
-                      <div>- 최저: {minTemp}℃</div>
-                      <div>- 최고: {maxTemp}℃</div>
+                      <div>최저: {minTemp}℃</div>
+                      <div>최고: {maxTemp}℃</div>
                     </div>
                   ) : (
                     <div>데이터 없음</div>
