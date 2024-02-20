@@ -3,11 +3,10 @@
 import Footer from "@/src/components/footer/Footer";
 import OnDate from "@/src/components/functional/OnDate";
 import Navbar from "@/src/components/navbar/Navbar";
-import Image from "next/image";
 import { FC } from "react";
-import sun from "/public/images/sun.png";
 import OnWork from "@/src/components/onwork/OnWork";
 import ForecastBar from "@/src/components/forecastbar/ForecastBar";
+import ForecastBigIcon from "@/src/components/forecastbar/ForecastBigIcon";
 
 const Weather: FC = () => {
   return (
@@ -24,7 +23,7 @@ const Weather: FC = () => {
 
           <div className="flex justify-between px-8 py-4">
             <div className="w-1/2  mt-[36px] flex items-center justify-center">
-              <Image src={sun} alt="goals" width={256} height={256} />
+              <ForecastBigIcon />
             </div>
             <div className="w-1/2  mt-[36px] items-center">
               <div className="font-bold text-3xl px-4 text-center">

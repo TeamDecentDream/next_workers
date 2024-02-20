@@ -1,37 +1,14 @@
-import axios from "axios";
 import Image from "next/image";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
+import UseWeatherData from "./UseWeatherData";
 
 const ForecastBar: FC = () => {
-  const [forecastData, setForecastData] = useState<any>();
-
-  useEffect(() => {
-    const getWeatherForecast = async () => {
-      try {
-        navigator.geolocation.getCurrentPosition(async (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          const apiKey = "1a99cba73f0cfedd5d8a576166871a98";
-
-          const response = await axios.get(
-            `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&weather.icon&appid=${apiKey}`
-          );
-
-          setForecastData(response.data);
-          console.log(response.data);
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getWeatherForecast();
-  }, []);
+  const forecastData = UseWeatherData();
 
   return (
     <div>
       {forecastData ? (
-        <div className=" grid grid-cols-5 h-[311px] mt-8 px-32">
+        <div className=" grid grid-cols-5 h-[311px] mt-4 px-32">
           {Array.from({ length: 5 }, (_, dayIndex) => {
             const startDate = new Date();
             startDate.setDate(startDate.getDate() + dayIndex);
@@ -59,9 +36,9 @@ const ForecastBar: FC = () => {
             const iconUrl = `https://openweathermap.org/img/wn/${dailyForecasts[0]?.weather[0]?.icon}.png`;
 
             return (
-              <div key={dayIndex} className="forecast-itemw-[150px] h-[3110px]">
-                <div className="날씨 카드 flex flex-col items-center w-[150px] h-[270px] bg-lightGreen rounded-3xl shadow-xl ">
-                  <div className=" 오늘 아이콘 카드 ">
+              <div key={dayIndex} className="forecast-item w-[150px] h-[350px]">
+                <div className="flex flex-col items-center w-[150px] h-[270px] bg-lightGreen rounded-3xl shadow-xl ">
+                  <div className="">
                     <Image
                       src={iconUrl}
                       alt="Weather Icon"
