@@ -178,11 +178,8 @@ const TodoCalendar: FC = () => {
     const year = seoulTime.getFullYear();
     const month = String(seoulTime.getMonth() + 1).padStart(2, "0");
     const day = String(seoulTime.getDate()).padStart(2, "0");
-    const hours = String(seoulTime.getHours()).padStart(2, "0");
-    const minutes = String(seoulTime.getMinutes()).padStart(2, "0");
-    const seconds = String(seoulTime.getSeconds()).padStart(2, "0");
 
-    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    const formattedDateTime = `${year}-${month}-${day}`;
 
     return formattedDateTime;
   }
