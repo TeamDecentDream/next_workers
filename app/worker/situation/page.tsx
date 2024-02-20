@@ -9,6 +9,7 @@ import cctv from "/public/images/cctv.png";
 
 import OnWork from "@/src/components/onwork/OnWork";
 import Link from "next/link";
+import ForecastBar from "@/src/components/forecastbar/ForecastBar";
 
 const Situation: FC = () => {
   return (
@@ -32,7 +33,7 @@ const Situation: FC = () => {
           </div>
           <div className="flex min-w-[1140px] h-[290px] justify-between my-4">
             <div className="w-1/2 ">
-              <div className="flex justify-between mx-16 my-8">
+              <div className="flex justify-between mx-16 my-4">
                 <div className="text-lg font-bold">CCTV 관리</div>
                 <Link href="/worker/situation/cctv">
                   <button className="w-20 h-8 border-2 rounded-full border-darkGreen font-semibold">
@@ -68,68 +69,9 @@ const Situation: FC = () => {
             </div>
           </div>
 
-          <div className="max-w-[1140px] mt-12">
-            <div className="font-bold text-3xl mb-6 px-4">주간예보</div>
-            <div className="h-[161px] bg-red-300">
-              <div className="flex gap-8 justify-center">
-                <div>
-                  <div className="w-[92px] h-[92px] bg-blue-100">이미지</div>
-                  <ul>
-                    <li>1월 24일(금)</li>
-                    <li>최고 : 5°C</li>
-                    <li>최저 : -10°C</li>
-                  </ul>
-                </div>
-                <div className="h-[161px]">
-                  <div className="w-[92px] h-[92px] bg-blue-100">이미지</div>
-                  <ul>
-                    <li>1월 24일(금)</li>
-                    <li>최고 : 5°C</li>
-                    <li>최저 : -10°C</li>
-                  </ul>
-                </div>
-                <div className="h-[161px]">
-                  <div className="w-[92px] h-[92px] bg-blue-100">이미지</div>
-                  <ul>
-                    <li>1월 24일(금)</li>
-                    <li>최고 : 5°C</li>
-                    <li>최저 : -10°C</li>
-                  </ul>
-                </div>
-                <div className="h-[161px]">
-                  <div className="w-[92px] h-[92px] bg-blue-100">이미지</div>
-                  <ul>
-                    <li>1월 24일(금)</li>
-                    <li>최고 : 5°C</li>
-                    <li>최저 : -10°C</li>
-                  </ul>
-                </div>
-                <div className="h-[161px]">
-                  <div className="w-[92px] h-[92px] bg-blue-100">이미지</div>
-                  <ul>
-                    <li>1월 24일(금)</li>
-                    <li>최고 : 5°C</li>
-                    <li>최저 : -10°C</li>
-                  </ul>
-                </div>
-                <div className="h-[161px]">
-                  <div className="w-[92px] h-[92px] bg-blue-100">이미지</div>
-                  <ul>
-                    <li>1월 24일(금)</li>
-                    <li>최고 : 5°C</li>
-                    <li>최저 : -10°C</li>
-                  </ul>
-                </div>
-                <div className="h-[161px]">
-                  <div className="w-[92px] h-[92px] bg-blue-100">이미지</div>
-                  <ul>
-                    <li>1월 24일(금)</li>
-                    <li>최고 : 5°C</li>
-                    <li>최저 : -10°C</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+          <div className="max-w-[1140px] mx-2">
+            <div className="font-bold text-3xl mb-4 px-4">주간예보</div>
+            <ForecastBar />
           </div>
         </div>
         <Footer />
