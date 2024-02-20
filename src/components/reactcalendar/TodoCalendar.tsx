@@ -131,38 +131,22 @@ const TodoCalendar: FC = () => {
     if (inputText.trim() === "") {
       alert("내용을 입력해주세요.");
     } else {
-      // 만약 selectedDate가 null이면 오늘 날짜를 사용합니다.
-      const currentDate = selectedDate || new Date();
-      // 선택한 날짜의 ISO 형식 문자열을 생성합니다.
-      const localDate = new Date(
-        currentDate.getTime() - currentDate.getTimezoneOffset() * 60000
-      );
-
-      const formattedDate = localDate
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " ");
-
-      console.log("1", formattedDate);
-
-      // 서버에 POST 요청을 보냅니다.
       axios
         .post(
           GinServerBaseURL + `/todo`,
           {
             contents: inputText,
-            regDate: formattedDate
+            regDate: value
           },
           { headers: { Authorization: Auth.accessToken } }
         )
         .then((resp) => {
           loadData(); // 데이터 다시 불러오기
+
           alert("투두 생성 완료!");
-          console.log(localDate);
         })
         .catch((error) => {
           console.log(error);
-          console.log("2", formattedDate);
         });
 
       setInputText(""); // 입력 필드 초기화
