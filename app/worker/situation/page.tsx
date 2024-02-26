@@ -51,8 +51,8 @@ const Situation: FC = () => {
               </div>
             </div>
 
-            <div className="w-1/2 ">
-              <div className="flex justify-between mx-16 my-8">
+            <div className="w-1/2">
+              <div className="flex justify-between mx-16 my-4">
                 <div className="text-lg font-bold">해당 농가 관리</div>
                 <Link href="/worker/situation/reported">
                   <button className="w-20 h-8 border-2 rounded-full border-darkGreen font-semibold">
