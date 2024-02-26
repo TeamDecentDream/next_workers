@@ -45,7 +45,6 @@ const NavbarBtns: FC<NavbarBtnsProps> = ({ role }) => {
         <></>
       )}
       <Link href="/worker/situation">개인농가현황</Link>
-      <Link href="/worker/defi">DeFi</Link>
     </div>
   );
 };
